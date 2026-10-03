@@ -1,9 +1,17 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import {
+  Component,
+  lazy,
+  type ReactNode,
+  Suspense,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import {
   DEFAULT_WORK_KEYWORD,
@@ -25,6 +33,7 @@ import {
   LICENCE_PATH,
   PUBLIC_SLOT_TOOLS_ENABLED,
 } from "@/shared/config/site";
+import { useBrowserQuery } from "@/shared/lib/browser-navigation";
 import { todayISO } from "@/shared/lib/calendar";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
@@ -36,15 +45,10 @@ import {
   toggleMapStatus,
 } from "../model/map-status-filter";
 
-// Leaflet touches window at import time; render the map client-side only.
-const OfficeMap = dynamic(() => import("@/widgets/office-map").then((m) => m.OfficeMap), {
-  ssr: false,
-  loading: () => (
-    <div className="map-page__loading tw:rounded-md tw:bg-muted tw:p-4 tw:text-sm tw:text-muted-foreground">
-      Loading map...
-    </div>
-  ),
-});
+// Rendered only after the client-side office request; Leaflet needs window on import.
+const OfficeMap = lazy(() =>
+  import("@/widgets/office-map").then((module) => ({ default: module.OfficeMap })),
+);
 
 const STATUS_LABELS: Record<MapAvailabilityStatus, string> = {
   available: "available",
@@ -55,9 +59,7 @@ const STATUS_LABELS: Record<MapAvailabilityStatus, string> = {
 };
 
 export function MapPage() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { searchParams, updateQuery, queryReady } = useBrowserQuery();
   const searchID = useId();
   const keyword = parseWorkKeyword(searchParams.get("keyword"));
   const statusesParam = searchParams.get("statuses");
@@ -81,19 +83,6 @@ export function MapPage() {
   const [availabilityError, setAvailabilityError] = useState<string | null>(null);
   const availabilityRequestRef = useRef(0);
   const availabilityAbortRef = useRef<AbortController | null>(null);
-
-  const updateQuery = useCallback(
-    (updates: Record<string, string | null>) => {
-      const params = new URLSearchParams(searchParams.toString());
-      for (const [name, value] of Object.entries(updates)) {
-        if (value === null) params.delete(name);
-        else params.set(name, value);
-      }
-      const query = params.toString();
-      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
-    },
-    [pathname, router, searchParams],
-  );
 
   const loadOffices = useCallback(async (signal?: AbortSignal) => {
     setOfficesLoading(true);
@@ -142,13 +131,14 @@ export function MapPage() {
       setAvailabilityLoading(false);
       return;
     }
+    if (!queryReady) return;
 
     loadAvailability(keyword);
     return () => {
       availabilityRequestRef.current++;
       availabilityAbortRef.current?.abort();
     };
-  }, [keyword, loadAvailability]);
+  }, [keyword, loadAvailability, queryReady]);
 
   const availabilityBySite = useMemo(
     () => new Map(availability?.results.map((result) => [result.sit_id, result]) ?? []),
@@ -190,21 +180,18 @@ export function MapPage() {
               : "A geographic way to find DLT offices before continuing to the official booking service. Positions are geocoded from Thai office names, so a marker can be an approximate anchor rather than an entrance."}
           </p>
           <p className="map-page__evidence tw:mt-3 tw:text-sm">
-            <Link
+            <a
               href={AVAILABILITY_GUIDE_PATH}
               className="map-page__evidence-guide tw:text-primary tw:underline"
             >
               How to read this data
-            </Link>
+            </a>
           </p>
           <p className="map-page__licence tw:mt-2 tw:max-w-2xl tw:text-sm tw:text-stone-600">
             Deciding which office you actually need?{" "}
-            <Link
-              href={LICENCE_PATH}
-              className="map-page__licence-link tw:text-primary tw:underline"
-            >
+            <a href={LICENCE_PATH} className="map-page__licence-link tw:text-primary tw:underline">
               Start from your licence question
-            </Link>
+            </a>
             .
           </p>
         </div>
@@ -380,15 +367,54 @@ export function MapPage() {
               </Card>
             ) : null}
 
-            <OfficeMap
-              offices={visibleOffices}
-              availabilityBySite={availabilityBySite}
-              availabilityLoading={availabilityLoading}
-              keyword={keyword}
-            />
+            <MapLoadBoundary>
+              <Suspense
+                fallback={
+                  <div className="map-page__loading tw:rounded-md tw:bg-muted tw:p-4 tw:text-sm tw:text-muted-foreground">
+                    Loading map...
+                  </div>
+                }
+              >
+                <OfficeMap
+                  offices={visibleOffices}
+                  availabilityBySite={availabilityBySite}
+                  availabilityLoading={availabilityLoading}
+                  keyword={keyword}
+                />
+              </Suspense>
+            </MapLoadBoundary>
           </>
         )}
       </div>
     </main>
   );
+}
+
+class MapLoadBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    if (!this.state.failed) return this.props.children;
+
+    return (
+      <div
+        role="alert"
+        className="map-page__map-error tw:flex tw:flex-col tw:items-start tw:gap-3 tw:rounded-md tw:bg-muted tw:p-4 tw:text-sm"
+      >
+        <p>The interactive map could not be loaded. The office directory is still available.</p>
+        <div className="tw:flex tw:flex-wrap tw:items-center tw:gap-4">
+          <Button type="button" variant="outline" onClick={() => window.location.reload()}>
+            Reload map
+          </Button>
+          <a href="/offices" className="tw:text-primary tw:underline">
+            Browse DLT offices
+          </a>
+        </div>
+      </div>
+    );
+  }
 }

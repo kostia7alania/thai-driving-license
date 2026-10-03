@@ -1,0 +1,87 @@
+---
+import {
+  GOOGLE_SITE_VERIFICATION,
+  PUBLIC_SITE_CONFIGURED,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_URL,
+} from "@/shared/config/site";
+import { serializeJsonLd } from "@/shared/lib/json-ld";
+import "../globals.css";
+
+interface Props {
+  title?: string;
+  absoluteTitle?: boolean;
+  description?: string;
+  canonical?: string;
+  index?: boolean;
+  follow?: boolean;
+  openGraph?: {
+    title: string;
+    description: string;
+    path: string;
+    type?: "website" | "article";
+    modifiedTime?: string;
+  };
+  structuredData?: unknown;
+}
+
+const {
+  title = SITE_NAME,
+  absoluteTitle = false,
+  description = SITE_TAGLINE,
+  canonical,
+  index = true,
+  follow = true,
+  openGraph,
+  structuredData,
+} = Astro.props;
+const documentTitle = absoluteTitle || title === SITE_NAME ? title : `${title} | ${SITE_NAME}`;
+const robots = [
+  PUBLIC_SITE_CONFIGURED && index ? "index" : "noindex",
+  PUBLIC_SITE_CONFIGURED && follow ? "follow" : "nofollow",
+].join(", ");
+---
+
+<!doctype html>
+<html lang="en" class="tw:h-full tw:antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{documentTitle}</title>
+    <meta name="application-name" content={SITE_NAME} />
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />
+    {canonical && <link rel="canonical" href={`${SITE_URL}${canonical}`} />}
+    <meta property="og:type" content={openGraph?.type ?? "website"} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={openGraph?.title ?? SITE_NAME} />
+    <meta property="og:description" content={openGraph?.description ?? SITE_TAGLINE} />
+    <meta property="og:url" content={`${SITE_URL}${openGraph?.path ?? "/"}`} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={`${SITE_URL}/opengraph-image`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content={SITE_NAME} />
+    {openGraph?.modifiedTime && (
+      <meta property="article:modified_time" content={openGraph.modifiedTime} />
+    )}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={SITE_NAME} />
+    <meta name="twitter:description" content={SITE_TAGLINE} />
+    <meta name="twitter:image" content={`${SITE_URL}/twitter-image`} />
+    <meta name="twitter:image:width" content="1200" />
+    <meta name="twitter:image:height" content="630" />
+    <meta name="twitter:image:alt" content={SITE_NAME} />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-icon" type="image/png" sizes="180x180" />
+    {structuredData !== undefined && (
+      <script type="application/ld+json" set:html={serializeJsonLd(structuredData)} />
+    )}
+  </head>
+  <body class="tw:flex tw:min-h-full tw:flex-col">
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,8 @@
+---
+import SiteLayout from "@/app/layouts/site-layout.astro";
+import { PlaygroundPage } from "@/views/playground";
+---
+
+<SiteLayout title="API Playground" description="Inspect live and stored Thai DLT Smart Queue API responses." index={false} follow={false}>
+  <PlaygroundPage client:load />
+</SiteLayout>

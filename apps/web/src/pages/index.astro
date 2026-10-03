@@ -1,0 +1,22 @@
+---
+import SiteLayout from "@/app/layouts/site-layout.astro";
+import { LICENCE_PATH, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/shared/config/site";
+import { HomePage } from "@/views/home";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: `${SITE_URL}/`,
+  description: SITE_TAGLINE,
+  mainEntity: {
+    "@type": "WebPage",
+    name: "Thai driving licence questions",
+    url: `${SITE_URL}${LICENCE_PATH}`,
+  },
+};
+---
+
+<SiteLayout title={SITE_NAME} absoluteTitle canonical="/" structuredData={structuredData}>
+  <HomePage />
+</SiteLayout>

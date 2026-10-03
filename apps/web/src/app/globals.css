@@ -1,4 +1,4 @@
-@import "tailwindcss" prefix(tw);
+@import "tailwindcss/index.css" prefix(tw);
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 

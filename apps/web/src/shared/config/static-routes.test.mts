@@ -8,7 +8,7 @@ import {
   type OfficeDirectory,
 } from "../../entities/dlt/model/office-directory.ts";
 // Import the two content files directly: the registry module re-exports them
-// with extensionless specifiers, which Next resolves but node --test does not.
+// with extensionless specifiers, which the bundler resolves but node --test does not.
 import { LICENCE_JOURNEYS } from "../../entities/guide/model/journeys-licence.ts";
 import { PROCESS_JOURNEYS } from "../../entities/guide/model/journeys-process.ts";
 import { STATIC_ROUTES } from "./static-routes.ts";
@@ -32,11 +32,11 @@ test("every published city hub has a sitemap entry", () => {
 });
 
 test("every public static page has a sitemap entry", () => {
-  const appDir = new URL("../../app/", import.meta.url);
-  for (const file of readdirSync(appDir, { recursive: true, encoding: "utf8" })) {
-    if (!/(^|\/)page\.tsx$/.test(file) || file.includes("[")) continue;
-    const path = file === "page.tsx" ? "" : `/${file.slice(0, -"/page.tsx".length)}`;
-    if (path === "/playground") continue;
+  const pagesDir = new URL("../../pages/", import.meta.url);
+  for (const file of readdirSync(pagesDir, { recursive: true, encoding: "utf8" })) {
+    if (!file.endsWith(".astro") || file.includes("[")) continue;
+    const path = `/${file.slice(0, -".astro".length)}`.replace(/\/index$/, "");
+    if (["/playground", "/404"].includes(path)) continue;
     assert.ok(paths.includes(path), `missing public page ${path || "/"}`);
   }
 });
@@ -62,17 +62,20 @@ test("no sitemap entry points at content that does not exist", () => {
   const journeySlugs = new Set(
     [...LICENCE_JOURNEYS, ...PROCESS_JOURNEYS].map((journey) => journey.slug),
   );
-  const appDir = new URL("../../app/", import.meta.url);
+  const pagesDir = new URL("../../pages/", import.meta.url);
+  const hasPage = (path: string) =>
+    existsSync(new URL(`.${path || "/index"}.astro`, pagesDir)) ||
+    existsSync(new URL(`.${path}/index.astro`, pagesDir));
 
   for (const path of paths) {
     // Per-office pages are generated from the committed directory by
-    // app/offices/site/[siteId]; only their shape is checked here.
+    // pages/offices/site/[siteId].astro; only their shape is checked here.
     if (/^\/offices\/site\/\d+$/.test(path)) continue;
 
     // A hub or guide slug must come from its registry, since one file serves all.
     const hub = path.match(/^\/offices\/(.+)$/)?.[1];
     // A path with its own page file wins over the registry-driven hub route.
-    if (hub && !existsSync(new URL(`.${path}/page.tsx`, appDir))) {
+    if (hub && !hasPage(path)) {
       assert.ok(hubSlugs.has(hub), `sitemap lists unknown hub ${hub}`);
       continue;
     }
@@ -85,8 +88,7 @@ test("no sitemap entry points at content that does not exist", () => {
 
     // Anything else must have its own page file, including routes owned by other
     // features (for example /appointments and the foreigner guide).
-    const page = new URL(`.${path}/page.tsx`, appDir);
-    assert.ok(existsSync(page), `sitemap lists ${path || "/"} but ${page.pathname} is missing`);
+    assert.ok(hasPage(path), `sitemap lists ${path || "/"} but its Astro page is missing`);
   }
 });
 

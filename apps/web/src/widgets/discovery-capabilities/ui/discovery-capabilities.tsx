@@ -6,7 +6,6 @@ import {
   History,
   Map as MapIcon,
 } from "lucide-react";
-import Link from "next/link";
 
 import {
   type DiscoveryCapability,
@@ -91,13 +90,13 @@ export function DiscoveryCapabilities({
                 <p className="tw:mt-3 tw:text-sm tw:leading-6 tw:text-stone-600">
                   {capability.description}
                 </p>
-                <Link
+                <a
                   href={capability.href}
                   className="discovery-capabilities__link tw:mt-6 tw:inline-flex tw:w-fit tw:items-center tw:gap-2 tw:text-sm tw:font-semibold tw:text-stone-950 tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
                 >
                   {CAPABILITY_ACTIONS[capability.id]}
                   <ArrowUpRight aria-hidden="true" className="tw:size-4" />
-                </Link>
+                </a>
               </CardContent>
             </Card>
           );

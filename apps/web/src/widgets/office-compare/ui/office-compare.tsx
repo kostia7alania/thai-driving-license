@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo } from "react";
 
 import { type CompareOfficeResult, type Office, officeLabel } from "@/entities/dlt";
@@ -141,7 +140,7 @@ export function OfficeCompare({ results, offices, currentDate, keyword }: Office
                   </TableCell>
                   <TableCell className="office-compare__actions">
                     <span className="tw:flex tw:flex-col tw:items-start tw:gap-2">
-                      <Link
+                      <a
                         href={`/calendar?siteId=${result.sit_id}&keyword=${encodeURIComponent(keyword)}`}
                         className={cn(
                           buttonVariants({ size: "sm", variant: "outline" }),
@@ -149,9 +148,9 @@ export function OfficeCompare({ results, offices, currentDate, keyword }: Office
                         )}
                       >
                         Open calendar
-                      </Link>
+                      </a>
                       {result.work_type && (
-                        <Link
+                        <a
                           href={`/history?siteId=${result.sit_id}&keyword=${encodeURIComponent(keyword)}`}
                           className={cn(
                             buttonVariants({ size: "sm", variant: "outline" }),
@@ -159,7 +158,7 @@ export function OfficeCompare({ results, offices, currentDate, keyword }: Office
                           )}
                         >
                           View history
-                        </Link>
+                        </a>
                       )}
                     </span>
                   </TableCell>

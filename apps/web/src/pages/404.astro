@@ -1,0 +1,19 @@
+---
+import SiteLayout from "@/app/layouts/site-layout.astro";
+import { PublicSiteFooter, PublicSiteHeader } from "@/widgets/public-site-chrome";
+---
+
+<SiteLayout title="Page not found" description="This page could not be found. Browse the licence guides or DLT office directory." index={false}>
+  <PublicSiteHeader />
+  <main class="tw:flex-1 tw:bg-[#f5f1e8] tw:px-5 tw:py-16 tw:text-stone-950">
+    <div class="tw:mx-auto tw:max-w-5xl">
+      <h1 class="tw:text-3xl tw:font-bold">Page not found</h1>
+      <p class="tw:mt-4 tw:text-stone-600">This address does not match a published page.</p>
+      <p class="tw:mt-6 tw:flex tw:flex-wrap tw:gap-5">
+        <a href="/licence" class="tw:underline tw:underline-offset-4">Browse licence guides</a>
+        <a href="/offices" class="tw:underline tw:underline-offset-4">Find a DLT office</a>
+      </p>
+    </div>
+  </main>
+  <PublicSiteFooter />
+</SiteLayout>

@@ -1,6 +1,6 @@
 # Roadmap
 
-Updated: 2026-09-22. [BACKLOG.md](BACKLOG.md) owns executable priorities;
+Updated: 2026-10-02. [BACKLOG.md](BACKLOG.md) owns executable priorities;
 [PROJECT_STATUS.md](PROJECT_STATUS.md) owns current evidence and delivery state.
 
 ## Implemented
@@ -32,7 +32,23 @@ first-licence, renewal, conversion, document, fee, expiry and timing journeys.
 Feature 022 previously connected Search Console and aligned the public free
 surface with the capabilities actually deployed.
 
-## Next: Durable Core and Launch Readiness
+## Next: Validate One Complete Self-Service Journey
+
+- Use [Feature 024](../specs/024-guided-self-service/spec.md) to select one
+  sourced route/region and produce a useful next-step plan within five minutes.
+- Combine document gaps, provider/vehicle details, itemized costs and a portable
+  checklist instead of adding disconnected tools. The five-minute target is
+  unmeasured, and local provider coverage still needs verification.
+- Observe real applicants through B07. Add AI input only if it resolves actual
+  friction; the guide and plain controls must remain useful without inference.
+- Keep moderated visit reports and read-only MCP conditional on real contributors
+  or clients. No new framework, model service or deployment is approved here.
+- Feature [025](../specs/025-astro-static-migration/tasks.md) now records the
+  owner-approved Astro migration and shared public TypeScript ownership.
+  Preserve the existing URLs, SEO and Worker/KV contract. Source maintenance
+  is part of the product, not evidence that a new agent platform is needed.
+
+## Maintain the Existing Release
 
 - Run the B04 Go/PostgreSQL, API image, configured build, browser and bounded
   live-DLT verification on the combined revision.
@@ -40,7 +56,8 @@ surface with the capabilities actually deployed.
   maintenance queue without treating age alone as proof they are wrong.
 - Prepare a reproducible full-BFF release candidate only if the current free
   MVP produces a concrete need for those capabilities.
-- Collect first-user feedback and search/conversion evidence.
+- Collect first-user feedback and search/conversion evidence on the free release;
+  do not wait for the full BFF to begin learning.
 
 ## After Evidence
 

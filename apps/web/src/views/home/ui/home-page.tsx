@@ -9,7 +9,6 @@ import {
   Route,
   ShieldCheck,
 } from "lucide-react";
-import Link from "next/link";
 
 import { CITY_HUBS } from "@/entities/dlt";
 import { JOURNEYS, journeysOfGroup } from "@/entities/guide";
@@ -103,7 +102,7 @@ export function HomePage() {
                   : `${SITE_NAME} helps you choose the right licence journey, shows a refreshed directory of Thai DLT offices, and makes the official hand-off clear. Slot dates and booking stay with DLT in this free release.`}
               </p>
               <div className="home-page__actions tw:mt-9 tw:flex tw:flex-wrap tw:gap-3">
-                <Link
+                <a
                   href={LICENCE_PATH}
                   className={cn(
                     buttonVariants({ size: "lg" }),
@@ -112,8 +111,8 @@ export function HomePage() {
                 >
                   Start with your licence question
                   <ArrowRight aria-hidden="true" />
-                </Link>
-                <Link
+                </a>
+                <a
                   href={PUBLIC_SLOT_TOOLS_ENABLED ? "/calendar" : OFFICES_PATH}
                   className={cn(
                     buttonVariants({ size: "lg", variant: "outline" }),
@@ -123,7 +122,7 @@ export function HomePage() {
                   {PUBLIC_SLOT_TOOLS_ENABLED
                     ? "Check appointment availability"
                     : "Browse DLT offices"}
-                </Link>
+                </a>
               </div>
               <p className="home-page__microcopy tw:mt-5 tw:flex tw:items-center tw:gap-2 tw:text-xs tw:font-medium tw:text-stone-500">
                 <LockKeyhole aria-hidden="true" className="tw:size-4" />
@@ -204,21 +203,21 @@ export function HomePage() {
             <ul className="tw:flex tw:flex-wrap tw:gap-x-5 tw:gap-y-2 tw:text-sm">
               {journeysOfGroup(JOURNEYS, "licence").map((journey) => (
                 <li key={journey.slug}>
-                  <Link
+                  <a
                     href={`${LICENCE_PATH}/${journey.slug}`}
                     className="home-page__journey-link tw:underline tw:underline-offset-4 tw:hover:text-emerald-800"
                   >
                     {journey.cardTitle}
-                  </Link>
+                  </a>
                 </li>
               ))}
               <li>
-                <Link
+                <a
                   href={LICENCE_PATH}
                   className="home-page__journey-link tw:font-semibold tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
                 >
                   All licence questions
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -238,29 +237,29 @@ export function HomePage() {
             <ul className="tw:flex tw:flex-wrap tw:gap-x-5 tw:gap-y-2 tw:text-sm">
               {CITY_HUBS.map((hub) => (
                 <li key={hub.slug}>
-                  <Link
+                  <a
                     href={`${OFFICES_PATH}/${hub.slug}`}
                     className="home-page__area-link tw:underline tw:underline-offset-4 tw:hover:text-emerald-800"
                   >
                     {hub.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
               <li>
-                <Link
+                <a
                   href={OFFICES_PATH}
                   className="home-page__area-link tw:font-semibold tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
                 >
                   All areas
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
+                <a
                   href={GUIDES_PATH}
                   className="home-page__area-link tw:font-semibold tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
                 >
                   Licence guides
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -290,13 +289,13 @@ export function HomePage() {
                   : "Use exact site IDs, source names, and labelled map anchors before continuing to the official DLT service."}
               </p>
             </div>
-            <Link
+            <a
               href={BANGKOK_OFFICES_PATH}
               className="tw:inline-flex tw:w-fit tw:items-center tw:gap-2 tw:text-sm tw:font-semibold tw:underline tw:decoration-emerald-300 tw:decoration-2 tw:underline-offset-4"
             >
               Open Bangkok office hub
               <ArrowRight aria-hidden="true" className="tw:size-4" />
-            </Link>
+            </a>
           </section>
 
           <section
@@ -317,13 +316,13 @@ export function HomePage() {
                 This service helps with the search. Eligibility, documents, and the appointment
                 itself stay with DLT and can vary by office.
               </p>
-              <Link
+              <a
                 href={FOREIGNER_GUIDE_PATH}
                 className="tw:mt-6 tw:inline-flex tw:items-center tw:gap-2 tw:text-sm tw:font-semibold tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
               >
                 Read the foreigner guide
                 <ArrowRight aria-hidden="true" className="tw:size-4" />
-              </Link>
+              </a>
             </div>
             <ol className="home-page__steps tw:grid tw:gap-3">
               {DISCOVERY_STEPS.map((step) => (
@@ -357,19 +356,19 @@ export function HomePage() {
                 </h2>
               </div>
               <div className="tw:flex tw:flex-wrap tw:gap-x-6 tw:gap-y-3">
-                <Link
+                <a
                   href={AVAILABILITY_GUIDE_PATH}
                   className="tw:inline-flex tw:items-center tw:gap-2 tw:text-sm tw:font-semibold tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
                 >
                   How to read the data
                   <ArrowRight aria-hidden="true" className="tw:size-4" />
-                </Link>
-                <Link
+                </a>
+                <a
                   href={APPOINTMENTS_PATH}
                   className="tw:inline-flex tw:items-center tw:gap-2 tw:text-sm tw:font-semibold tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
                 >
                   How discovery works
-                </Link>
+                </a>
               </div>
             </div>
             <div className="tw:mt-8 tw:grid tw:gap-px tw:overflow-hidden tw:rounded-2xl tw:border tw:border-stone-900/10 tw:bg-stone-900/10 tw:md:grid-cols-3">

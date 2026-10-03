@@ -1,7 +1,37 @@
 # Project Status
 
-Checked: 2026-09-22. This is a repository and delivery audit. Older source
+Local source and existing production checked: 2026-10-03. Astro release
+verification is in progress; the public site still serves the September 22 version. Older source
 research and validation records retain their original dates.
+
+## October 3 Astro Migration: RELEASE_IN_PROGRESS
+
+Feature [025](../specs/025-astro-static-migration/tasks.md) replaces Next with
+Astro static generation and targeted React islands. The free Worker/KV runtime,
+public URLs and Go/PostgreSQL code remain intact. Existing public env names and
+`apps/web/out` are preserved. Constitution 1.2.0 permits shared public deterministic
+TypeScript rules, but no personal planner, AI endpoint or MCP is implemented.
+
+The configured export preserves 247 public HTML routes and 243 sitemap URLs.
+Titles, descriptions, canonicals, effective robots, Google verification and
+JSON-LD match the previous export. 241 ordinary routes ship no executable JS;
+home and the first-licence page drop seven modern JS files totaling 141,435 gzip
+bytes per page, plus inline bootstrap data. This is a build-output comparison,
+not a measured network-transfer or Core Web Vitals improvement.
+
+Local desktop/mobile checks cover content, office refresh and map URL state.
+The real bounded DLT refresh returned 218 offices and persisted only to local KV;
+the 30-minute cooldown retained the same capture. Local mobile Lighthouse SEO
+and accessibility scored 100 on `/offices` and the first-licence guide; this does
+not promise ranking or measure performance. Full-BFF build and query-boundary
+checks are not a Go/PostgreSQL end-to-end test. See the feature tasks for details.
+
+The owner authorized publication and deployment on October 3. Clean install,
+frontend checks, static parity and Worker dry-run pass again; read-only review
+found no confirmed blocker. The currently deployed version and 218-office
+upstream snapshot were verified. Publication, CI and the Astro deployment still
+need their own receipts. Two unpatched build/CLI dependency advisories are
+documented in the feature tasks; yesterday's zero-audit result is historical.
 
 ## September 22 Procedural Source Review
 
@@ -217,9 +247,9 @@ still require review when their underlying contract or decision boundary moves.
 
 ## Implementation and Operations
 
-The frontend is a static Next.js export. In the free release it uses same-origin
+The local frontend is an Astro static export. In the free release it uses same-origin
 Worker endpoints for the office list; the Worker stores one validated snapshot
-in KV and falls back to the committed capture. There is no runtime Next.js BFF.
+in KV and falls back to the committed capture. There is no runtime rendering server.
 The Go API still owns work types, slots, comparison and history semantics, while
 PostgreSQL owns durable observations when that full BFF is deployed.
 

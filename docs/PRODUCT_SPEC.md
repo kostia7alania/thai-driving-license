@@ -1,6 +1,6 @@
 # Product Spec
 
-Updated: 2026-09-22. Implementation and validation state: [PROJECT_STATUS.md](PROJECT_STATUS.md).
+Updated: 2026-10-02. Implementation and validation state: [PROJECT_STATUS.md](PROJECT_STATUS.md).
 
 ## Product and Audience
 
@@ -31,6 +31,26 @@ No subsequent accepted rename is recorded in the repository.
 
 The current "start here" experience is a static decision table. It is not a
 personalized eligibility engine or a completed offline checklist.
+
+## Proposed Product Direction
+
+[Feature 024](../specs/024-guided-self-service/spec.md) explores a five-minute
+self-service plan: clear next steps, missing documents, scoped office/provider
+facts, costs and a checklist to take along. Start with one verified route and
+region, then observe real applicants. These are proposed stories, not current
+capabilities or guaranteed eligibility advice.
+
+The useful artifact is the plan. Natural-language AI is an optional input layer;
+it must not invent requirements or replace source review. Structured visit reports
+and read-only MCP are later evidence/distribution options. Optimize for useful
+next actions and reported progress, not time spent chatting or daily retention.
+
+The [technology audit](research/2026-10-02-technology-audit.md) proposes using AI
+also for reviewed editorial drafts and exposing public facts to connected AI
+clients without requiring our own inference on every MCP call. Missing facts
+remain unknown; escalation is for recoverable interpretation errors, not policy
+certainty. Feature 025 separately records the accepted static-first architecture
+and public TypeScript ownership; the conditional AI stories remain unimplemented.
 
 ## Implemented Capabilities
 
@@ -85,14 +105,19 @@ before expanding scope; no payment flow or monitoring service is implemented.
 
 ## Architecture and Non-goals
 
-The free release uses a Next.js static export plus one Cloudflare Worker/KV
+The local Feature 025 source uses Astro static output plus one Cloudflare Worker/KV
 office snapshot behind same-origin `/v1` routes. The full stack remains Go with
 chi/Huma and PostgreSQL with pgx and plain SQL for work types, slots and history.
-There is no running Next.js BFF in the exported site.
+There is no rendering server in the exported site. Targeted React islands keep
+interactive controls working without hydrating ordinary content. New public
+deterministic rules may share one TypeScript implementation across browser and
+Worker where both consume it; secrets, I/O, model calls and write validation
+remain server-side. See Feature 025 for the local-versus-deployed boundary.
 
 No auth, booking automation, billing, Redis, queues, D1 or slot monitoring. The
 only scheduled task is the bounded office-list refresh authorized in Feature
-021. A framework or durable-datastore rewrite is not part of the current plan.
+021. Astro is the explicitly accepted framework migration; a durable-datastore
+rewrite, Go port and AI service are not part of it.
 
 See [BACKLOG.md](BACKLOG.md) for priorities and [idea.md](idea.md) for the
 historical upstream contract evidence.

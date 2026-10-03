@@ -17,7 +17,7 @@ live MVP at
 
 ## What is included
 
-- Static Next.js 16 interface with a public appointment landing page, bounded
+- Astro static interface with selective React islands, a public appointment landing page, bounded
   foreigner and availability-evidence guides, evidence-bounded Bangkok office
   directory, calendar, five-status stored-evidence map, office comparison,
   history, and an API playground.
@@ -76,8 +76,8 @@ requests to the Cloudflare Worker; an absent local-development value retains
 the `http://localhost:8080` Go API default.
 
 The root `.env` is read by Docker Compose, but `make api-dev` does not load it
-into the Go process. Pass API overrides as environment variables. Next.js
-reads frontend overrides from `apps/web/.env.local` or the shell; use
+into the Go process. Pass API overrides as environment variables. Astro's Vite
+configuration reads frontend overrides from `apps/web/.env.local` or the shell; use
 `NEXT_PUBLIC_API_URL`, not the obsolete `API_URL` name. The defaults work with
 PostgreSQL on port 5432; see [the handoff](docs/HANDOFF.md) for a 5433 setup.
 
@@ -129,7 +129,7 @@ curl 'http://localhost:8080/v1/dlt/history/slots?workTypeId=111093&limit=20'
 
 The live first production shape is one Cloudflare Worker at
 [`thai-driving-license.kostia7alania.workers.dev`](https://thai-driving-license.kostia7alania.workers.dev):
-static Next.js assets plus same-origin office snapshot endpoints backed by one KV key.
+static assets plus same-origin office snapshot endpoints backed by one KV key.
 It needs no paid domain, database or always-on server. Under Cloudflare's current
 Free-plan limits this workload has substantial headroom, but provider pricing
 is an external policy and cannot be promised literally forever.
@@ -137,6 +137,13 @@ is an external policy and cannot be promised literally forever.
 The Go API and PostgreSQL remain the portable full-BFF path for work types,
 slots, comparison and history. They are not required for the static content or
 fresh office directory in the free release.
+
+Feature [025](specs/025-astro-static-migration/tasks.md) replaces the local Next
+export with Astro while preserving the same host/API contract. Its verification
+record distinguishes local source from a deployed revision. Public content is
+build-time HTML; React is hydrated only for interactive tools and office refresh.
+New public deterministic plan rules may be shared by browser and Worker, but
+the personal planner is not implemented yet. No paid service was enabled.
 
 See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for configuration, secrets,
 backups, monitoring, maintenance, cost limits, and rollback.

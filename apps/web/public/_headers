@@ -5,10 +5,10 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
 
-/_next/static/*
+/_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Next emits the metadata images without a file extension, and the global
+# Existing metadata image URLs have no file extension, and the global
 # X-Content-Type-Options: nosniff stops a host from guessing. Declare the type
 # explicitly or crawlers refuse the preview image.
 /opengraph-image

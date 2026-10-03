@@ -1,0 +1,29 @@
+---
+import SiteLayout from "@/app/layouts/site-layout.astro";
+import {
+  APPOINTMENTS_PATH,
+  PUBLIC_SLOT_TOOLS_ENABLED,
+  SITE_NAME,
+  SITE_URL,
+} from "@/shared/config/site";
+import { AppointmentsPage } from "@/views/appointments";
+
+const title = PUBLIC_SLOT_TOOLS_ENABLED
+  ? "Thai Driving-Licence Appointment Availability"
+  : "Find a DLT Office Before Booking";
+const description = PUBLIC_SLOT_TOOLS_ENABLED
+  ? "Search observed Thai DLT driving-licence appointment availability by calendar, office comparison, map, and stored history."
+  : "Choose a Thai driving-licence journey, find a DLT office, and continue to the official booking service.";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `Thai driving-licence appointment availability | ${SITE_NAME}`,
+  description,
+  url: `${SITE_URL}${APPOINTMENTS_PATH}`,
+  isPartOf: { "@type": "WebSite", name: SITE_NAME, url: `${SITE_URL}/` },
+};
+---
+
+<SiteLayout title={title} description={description} canonical={APPOINTMENTS_PATH} structuredData={structuredData}>
+  <AppointmentsPage />
+</SiteLayout>

@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { JOURNEYS, journeysOfGroup, LICENCE_PATH_SEGMENT } from "@/entities/guide";
 import {
   AVAILABILITY_NOTICE,
@@ -73,12 +71,12 @@ function JourneyGrid({ slugsGroup }: { slugsGroup: "licence" | "process" }) {
             </CardHeader>
             <CardContent className="tw:flex tw:flex-col tw:gap-3">
               <p className="tw:text-sm tw:text-stone-600">{journey.outcome}</p>
-              <Link
+              <a
                 href={`/${LICENCE_PATH_SEGMENT}/${journey.slug}`}
                 className={cn(buttonVariants({ size: "sm" }), "tw:self-start")}
               >
                 Open
-              </Link>
+              </a>
             </CardContent>
           </Card>
         </li>
@@ -122,12 +120,12 @@ export function LicenceIndexPage() {
               >
                 <dt className="tw:text-stone-700">{row.situation}</dt>
                 <dd>
-                  <Link
+                  <a
                     href={`/${LICENCE_PATH_SEGMENT}/${row.slug}`}
                     className="tw:font-medium tw:text-stone-950 tw:underline tw:underline-offset-4"
                   >
                     {row.action}
-                  </Link>
+                  </a>
                 </dd>
               </div>
             ))}
@@ -161,15 +159,15 @@ export function LicenceIndexPage() {
             whether the day you want is open before you spend a morning on it.
           </p>
           <div className="tw:mt-3 tw:flex tw:flex-wrap tw:gap-3">
-            <Link href={OFFICES_PATH} className={cn(buttonVariants({ size: "lg" }))}>
+            <a href={OFFICES_PATH} className={cn(buttonVariants({ size: "lg" }))}>
               Offices by area
-            </Link>
-            <Link
+            </a>
+            <a
               href={GUIDES_PATH}
               className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
             >
               How to read the evidence
-            </Link>
+            </a>
           </div>
           <p className="tw:mt-6 tw:text-xs tw:text-stone-600">
             {`${INDEPENDENCE_NOTICE} ${AVAILABILITY_NOTICE} ${PRIVACY_NOTICE}`}

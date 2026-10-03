@@ -1,11 +1,11 @@
 <!--
 Sync Impact Report
-Version change: 1.0.2 -> 1.1.0
-Modified principles: II now permits an explicitly authorized read-only edge cache behind a stable API contract
-Added constraints: Feature 021 Worker/KV boundary and zero-cost guardrails
+Version change: 1.1.0 -> 1.2.0
+Modified principles: II adopts Astro static delivery and bounded shared TypeScript logic
+Added constraints: explicit browser/server boundaries and Free-plan-only operation
 Removed constraints: none
-Templates requiring updates: Feature 021 plan records the exception
-Follow-up TODOs: move the office contract behind the Go BFF when paid/runtime validation justifies it
+Templates requiring updates: Feature 025 plan records the accepted migration
+Follow-up TODOs: validate Feature 024 data before implementing personal plans
 -->
 
 # Thai Driving License Constitution
@@ -18,14 +18,16 @@ Authentication, billing, Redis, Kafka, NATS, background queues, websockets, and
 booking automation MUST NOT be added unless the user explicitly requests them.
 Complex abstractions MUST be rejected when direct, production-readable code is enough.
 
-### II. Go Backend, Thin Next.js UI, PostgreSQL Core
-Business logic, eligibility and appointment interpretation MUST live in the Go
-API. Next.js MUST be used for UI and thin BFF routes only. PostgreSQL is the only
-durable product datastore for v1. An explicitly authorized edge MVP MAY validate
-and cache a bounded public read-only upstream snapshot behind the same `/v1`
-contract, but MUST NOT add booking logic, identity data or a second source of
-durable history. No ORM may be introduced unless explicitly requested; migrations
-and simple SQL are preferred.
+### II. Static-First UI and Explicit Server Boundaries
+Astro MUST compile public content to static HTML; hydrate only interactive UI.
+Cloudflare Workers and the existing KV snapshot serve the free public runtime.
+Public deterministic rules MAY be implemented once in TypeScript and reused by
+browser and Worker when both need them. Secrets, upstream I/O, model calls and
+authoritative validation of writes MUST stay server-side. The existing Go API
+and PostgreSQL slot/history contracts remain intact and optional for deployment.
+PostgreSQL remains the only durable product datastore until a separate storage
+decision; KV is a replaceable public cache, not durable history or reviews.
+Do not add booking logic or identity processing. No ORM without explicit approval.
 
 ### III. OpenAPI-First JSON API
 The backend MUST expose JSON endpoints under `/v1`, a health endpoint at `/healthz`,
@@ -56,7 +58,7 @@ parsing, and API behavior changes SHOULD include tests or documented manual chec
 - Node.js: Current release line (26.x), pinned via `.nvmrc` and `engines`.
 - Frontend lint/format: Biome (single tool); no ESLint or Prettier.
 - Backend router: chi or Huma with chi adapter.
-- Frontend: Next.js App Router with TypeScript.
+- Frontend: Astro static output with TypeScript and selective React islands.
 - Local services: Docker Compose for PostgreSQL only (PostgreSQL 18).
 - API responses: JSON only.
 - Handlers: context-aware.
@@ -64,6 +66,8 @@ parsing, and API behavior changes SHOULD include tests or documented manual chec
 - Feature 021 may use one Cloudflare Worker, Workers Static Assets, Cron Triggers
   and one Workers KV office snapshot on the Free plan. D1, R2, Durable Objects,
   runtime Git writes and slot monitoring remain out of scope.
+- Do not activate paid plans or paid model fallback. Quota exhaustion must retain
+  usable static guidance and clearly disable unavailable dynamic capabilities.
 
 ## Development Workflow
 
@@ -81,7 +85,7 @@ to these principles require an explicit documentation update, a version bump, an
 short rationale in the relevant spec or decision document. Feature plans and tasks
 MUST pass the constitution check before implementation.
 
-**Version**: 1.1.0 | **Ratified**: 2026-05-16 | **Last Amended**: 2026-09-21
+**Version**: 1.2.0 | **Ratified**: 2026-05-16 | **Last Amended**: 2026-10-02
 
 Amendment 1.0.1 (2026-07-07): technology constraint versions refreshed to current
 upstream releases (Go 1.26+, Node 24 LTS, PostgreSQL 18) as part of the feature 004
@@ -96,3 +100,8 @@ Amendment 1.1.0 (2026-09-21): the owner explicitly authorized a zero-cost
 Cloudflare first release. Feature 021 may cache only the public office list in KV
 and expose it behind the existing `/v1` contract; the Go/PostgreSQL core retains
 all slot, history, eligibility and booking semantics.
+
+Amendment 1.2.0 (2026-10-02): the owner accepted Astro and a shared TypeScript
+browser/Worker boundary for a free-first product. Feature 025 migrates existing
+pages without adding a database, model endpoint or personal-plan implementation.
+Existing Go/PostgreSQL capabilities are preserved rather than ported or deployed.

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { type DLTStep, StepCard } from "@/features/dlt-step-runner";
 import { API_BASE } from "@/shared/config/api";
@@ -152,12 +151,12 @@ export function PlaygroundPage() {
       <div className="dlt-playground__container tw:mx-auto tw:flex tw:w-full tw:max-w-6xl tw:flex-col tw:gap-8">
         <div className="dlt-playground__header tw:flex tw:flex-col tw:gap-4 tw:md:flex-row tw:md:items-end tw:md:justify-between">
           <div>
-            <Link
+            <a
               href="/"
               className="dlt-playground__back tw:text-sm tw:font-medium tw:text-primary tw:underline"
             >
               &larr; Back to Home
-            </Link>
+            </a>
             <h1 className="dlt-playground__title tw:mt-4 tw:text-3xl tw:font-bold">
               DLT API Playground
             </h1>

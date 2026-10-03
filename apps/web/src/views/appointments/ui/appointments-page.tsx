@@ -1,5 +1,4 @@
 import { ArrowRight, ExternalLink, MapPin, Search, ShieldCheck } from "lucide-react";
-import Link from "next/link";
 
 import { CITY_HUBS, cityHubCoverage } from "@/entities/dlt";
 import {
@@ -60,7 +59,7 @@ export function AppointmentsPage() {
                   : "Start from your licence question, then use the refreshed office directory or map to choose a place you can reach. This free release does not show slot dates; confirm live availability and book on the official DLT service."}
               </p>
               <div className="tw:mt-7 tw:flex tw:flex-wrap tw:gap-3">
-                <Link
+                <a
                   href={PUBLIC_SLOT_TOOLS_ENABLED ? "/calendar" : OFFICES_PATH}
                   className={cn(
                     buttonVariants({ size: "lg" }),
@@ -69,8 +68,8 @@ export function AppointmentsPage() {
                 >
                   {PUBLIC_SLOT_TOOLS_ENABLED ? "Check availability" : "Browse DLT offices"}
                   <ArrowRight aria-hidden="true" />
-                </Link>
-                <Link
+                </a>
+                <a
                   href={PUBLIC_SLOT_TOOLS_ENABLED ? "/compare" : "/map"}
                   className={cn(
                     buttonVariants({ size: "lg", variant: "outline" }),
@@ -78,7 +77,7 @@ export function AppointmentsPage() {
                   )}
                 >
                   {PUBLIC_SLOT_TOOLS_ENABLED ? "Compare offices" : "Open the office map"}
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -100,20 +99,20 @@ export function AppointmentsPage() {
                   Start from the area you can travel to.
                 </h2>
               </div>
-              <Link
+              <a
                 href={OFFICES_PATH}
                 className="tw:inline-flex tw:items-center tw:gap-2 tw:text-sm tw:font-semibold tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
               >
                 All published areas
                 <ArrowRight aria-hidden="true" className="tw:size-4" />
-              </Link>
+              </a>
             </div>
             <ul className="appointments-page__area-list tw:mt-8 tw:grid tw:gap-3 tw:sm:grid-cols-2 tw:lg:grid-cols-4">
               {CITY_HUBS.map((hub) => {
                 const coverage = cityHubCoverage(hub);
                 return (
                   <li key={hub.slug}>
-                    <Link
+                    <a
                       href={`${OFFICES_PATH}/${hub.slug}`}
                       className="appointments-page__area tw:flex tw:h-full tw:flex-col tw:gap-1 tw:rounded-2xl tw:border tw:border-stone-900/10 tw:bg-white/60 tw:p-5 tw:hover:border-stone-900/25"
                     >
@@ -121,7 +120,7 @@ export function AppointmentsPage() {
                       <span className="tw:font-mono tw:text-xs tw:text-stone-600">
                         {coverage.offices} in the list · {coverage.appointmentOpen} marked open
                       </span>
-                    </Link>
+                    </a>
                   </li>
                 );
               })}
@@ -149,13 +148,13 @@ export function AppointmentsPage() {
                   : "See exact site IDs and labelled map anchors before continuing to the official DLT service."}
               </p>
             </div>
-            <Link
+            <a
               href={BANGKOK_OFFICES_PATH}
               className="tw:inline-flex tw:w-fit tw:items-center tw:gap-2 tw:text-sm tw:font-semibold tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
             >
               Browse Bangkok offices
               <ArrowRight aria-hidden="true" className="tw:size-4" />
-            </Link>
+            </a>
           </section>
 
           <section
@@ -212,34 +211,34 @@ export function AppointmentsPage() {
                 >
                   Before you continue
                 </h2>
-                <Link
+                <a
                   href={LICENCE_PATH}
                   className="appointments-page__licence-link tw:mt-5 tw:inline-flex tw:items-center tw:gap-2 tw:text-sm tw:font-semibold tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
                 >
                   Start from your licence question
                   <ArrowRight aria-hidden="true" className="tw:size-4" />
-                </Link>
-                <Link
+                </a>
+                <a
                   href={AVAILABILITY_GUIDE_PATH}
                   className="tw:mt-3 tw:flex tw:w-fit tw:items-center tw:gap-2 tw:text-sm tw:font-semibold tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
                 >
                   Learn how to read the evidence
                   <ArrowRight aria-hidden="true" className="tw:size-4" />
-                </Link>
-                <Link
+                </a>
+                <a
                   href={FOREIGNER_GUIDE_PATH}
                   className="tw:mt-3 tw:flex tw:w-fit tw:items-center tw:gap-2 tw:text-sm tw:font-semibold tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
                 >
                   Read the bounded foreigner guide
                   <ArrowRight aria-hidden="true" className="tw:size-4" />
-                </Link>
-                <Link
+                </a>
+                <a
                   href={`${LICENCE_PATH}/convert-foreign-license`}
                   className="appointments-page__licence-link tw:mt-3 tw:flex tw:w-fit tw:items-center tw:gap-2 tw:text-sm tw:font-semibold tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
                 >
                   Converting a foreign licence
                   <ArrowRight aria-hidden="true" className="tw:size-4" />
-                </Link>
+                </a>
               </div>
               <dl className="tw:grid tw:gap-px tw:overflow-hidden tw:rounded-2xl tw:border tw:border-stone-900/10 tw:bg-stone-900/10">
                 {[

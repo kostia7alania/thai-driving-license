@@ -1,0 +1,18 @@
+---
+import SiteLayout from "@/app/layouts/site-layout.astro";
+import ToolLayout from "@/app/layouts/tool-layout.astro";
+import { PUBLIC_SLOT_TOOLS_ENABLED } from "@/shared/config/site";
+import { BffRequiredPage } from "@/views/bff-required";
+import { HistoryPage } from "@/views/history";
+
+const title = PUBLIC_SLOT_TOOLS_ENABLED ? "DLT Slot History" : "Slot History Unavailable";
+const description = PUBLIC_SLOT_TOOLS_ENABLED
+  ? "Inspect recent stored Thai DLT appointment observations and comparable status changes."
+  : "Stored slot history requires the full Thai Driving License backend.";
+---
+
+<SiteLayout title={title} description={description} canonical="/history" index={PUBLIC_SLOT_TOOLS_ENABLED}>
+  <ToolLayout name="history">
+    {PUBLIC_SLOT_TOOLS_ENABLED ? <HistoryPage client:load /> : <BffRequiredPage toolName="Stored slot history" />}
+  </ToolLayout>
+</SiteLayout>

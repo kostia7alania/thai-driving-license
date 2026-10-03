@@ -167,11 +167,11 @@ test("no published hub is silently truncated by the comparison cap", () => {
 
 test("only hubs with a bespoke static route are excluded from the dynamic one", () => {
   for (const hub of CITY_HUBS) {
-    const bespoke = new URL(`../../../app/offices/${hub.slug}/page.tsx`, import.meta.url);
+    const bespoke = new URL(`../../../pages/offices/${hub.slug}.astro`, import.meta.url);
     assert.equal(
       hasBespokeRoute(hub),
       existsSync(bespoke),
-      `${hub.slug}: exclusion list and app/offices/${hub.slug}/page.tsx disagree`,
+      `${hub.slug}: exclusion list and pages/offices/${hub.slug}.astro disagree`,
     );
   }
 

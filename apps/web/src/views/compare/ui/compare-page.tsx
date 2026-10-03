@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import {
@@ -18,6 +16,7 @@ import {
 } from "@/entities/dlt";
 import { OfficeMultiSelect } from "@/features/office-multi-select";
 import { AVAILABILITY_GUIDE_PATH, LICENCE_PATH } from "@/shared/config/site";
+import { useBrowserQuery } from "@/shared/lib/browser-navigation";
 import { todayISO } from "@/shared/lib/calendar";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
@@ -28,9 +27,7 @@ import { OfficeCompare } from "@/widgets/office-compare";
 const MAX_OFFICES = 8;
 
 export function ComparePage() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { searchParams, updateQuery, queryReady } = useBrowserQuery();
 
   const [offices, setOffices] = useState<Sourced<Office[]> | null>(null);
   const [officesLoading, setOfficesLoading] = useState(true);
@@ -51,19 +48,6 @@ export function ComparePage() {
   const compareRequestRef = useRef(0);
   const compareAbortRef = useRef<AbortController | null>(null);
   const previousComparisonInputRef = useRef<string | null>(null);
-
-  const updateQuery = useCallback(
-    (updates: Record<string, string | null>) => {
-      const params = new URLSearchParams(searchParams.toString());
-      for (const [name, value] of Object.entries(updates)) {
-        if (value === null) params.delete(name);
-        else params.set(name, value);
-      }
-      const query = params.toString();
-      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
-    },
-    [pathname, router, searchParams],
-  );
 
   const loadOffices = useCallback(async (signal?: AbortSignal) => {
     setOfficesLoading(true);
@@ -128,12 +112,12 @@ export function ComparePage() {
   // Deep links (?siteIds=) run the comparison once on mount.
   const autoRanRef = useRef(false);
   useEffect(() => {
-    if (autoRanRef.current) return;
+    if (!queryReady || autoRanRef.current) return;
     autoRanRef.current = true;
     if (selectedSiteIds.length > 0) {
       runComparison(selectedSiteIds, keyword);
     }
-  }, [keyword, runComparison, selectedSiteIds]);
+  }, [keyword, runComparison, selectedSiteIds, queryReady]);
 
   const toggleOffice = (siteId: number) => {
     const nextSiteIDs = selectedSiteIds.includes(siteId)
@@ -158,21 +142,21 @@ export function ComparePage() {
             every row carries its own live-or-stored label with its observation time.
           </p>
           <p className="compare-page__evidence tw:mt-3 tw:text-sm">
-            <Link
+            <a
               href={AVAILABILITY_GUIDE_PATH}
               className="compare-page__evidence-guide tw:text-primary tw:underline"
             >
               How to read this data
-            </Link>
+            </a>
           </p>
           <p className="compare-page__licence tw:mt-2 tw:max-w-2xl tw:text-sm tw:text-stone-600">
             Not sure which work option your case falls under?{" "}
-            <Link
+            <a
               href={LICENCE_PATH}
               className="compare-page__licence-link tw:text-primary tw:underline"
             >
               Start from your licence question
-            </Link>
+            </a>
             .
           </p>
         </div>

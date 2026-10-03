@@ -1,0 +1,41 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import SiteLayout from "@/app/layouts/site-layout.astro";
+import {
+  cityHubForSiteID,
+  officeDetailPages,
+  officeDetailPath,
+  officeNameOrNull,
+} from "@/entities/dlt";
+import { PUBLIC_SLOT_TOOLS_ENABLED, SITE_URL } from "@/shared/config/site";
+import { breadcrumbList } from "@/shared/lib/json-ld";
+import { OfficeDetailPage } from "@/views/office-detail";
+
+export const getStaticPaths = (() =>
+  officeDetailPages.map((office) => ({
+    params: { siteId: String(office.sit_id) },
+    props: { office },
+  }))) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { office } = Astro.props;
+const name = officeNameOrNull(office) ?? `Site ID ${office.sit_id}`;
+const hub = cityHubForSiteID(office.sit_id);
+const path = officeDetailPath(office.sit_id);
+const title = PUBLIC_SLOT_TOOLS_ENABLED
+  ? `${name} — appointment availability`
+  : `${name} — DLT office details`;
+const description = PUBLIC_SLOT_TOOLS_ENABLED
+  ? `What the captured DLT appointment list holds for ${name} (site ID ${office.sit_id}): the appointment-open flag with its capture date, how precisely we can place it, and links into the calendar, map, history, and comparison views.`
+  : `What the captured DLT office list holds for ${name} (site ID ${office.sit_id}), including its capture date and labelled map position.`;
+const structuredData = breadcrumbList([
+  { name: "Home", item: `${SITE_URL}/` },
+  { name: "Offices by area", item: `${SITE_URL}/offices` },
+  ...(hub ? [{ name: hub.label, item: `${SITE_URL}/offices/${hub.slug}` }] : []),
+  { name, item: `${SITE_URL}${path}` },
+]);
+---
+
+<SiteLayout title={title} description={description} canonical={path} openGraph={{ title, description, path }} structuredData={structuredData}>
+  <OfficeDetailPage office={office} hub={hub} />
+</SiteLayout>

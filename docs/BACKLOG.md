@@ -1,14 +1,14 @@
 # Backlog
 
-Updated: 2026-09-22. Ordered by remaining product gaps, not historical feature
+Updated: 2026-10-02. Ordered by remaining product gaps, not historical feature
 numbering. A checked item means its stated outcome was verified. This list
 does not authorize external purchases, deployment or account changes. The owner
 separately authorized the Feature 020 repository and technical-identity rename.
 
 Features 021 and 023 completed the free-host durability work and the bounded
 high-intent procedural review. The full Go/PostgreSQL release checks remain
-separate; B07 follows a launch decision for measurement, not infrastructure
-completion alone.
+separate. B07 can use the already public free release; deploying the full BFF
+is not a prerequisite for learning from real applicants.
 
 ## Completed in This Pass
 
@@ -38,6 +38,17 @@ completion alone.
 
 ## Ready to Specify
 
+- [ ] **B15 / P1: Validate a five-minute self-service plan.** Draft
+  [Feature 024](../specs/024-guided-self-service/spec.md) and
+  [research](research/2026-09-26-first-five-minutes.md) join B08/B09 into one
+  narrow journey: next steps, document gaps, real provider/vehicle details,
+  itemized costs and a portable checklist. Choose one sourced route/region,
+  then observe real applicants through B07. AI interpretation, moderated
+  reports and MCP are conditional stories, not simultaneous launch requirements.
+  No framework rewrite or full-BFF deployment is required for discovery.
+  Feature [025](../specs/025-astro-static-migration/tasks.md) records the accepted
+  Astro migration and bounded TypeScript ownership exception. Keep source maintenance explicit;
+  neither stronger models nor office refreshes can certify procedural facts.
 - [ ] **B04 / P1: Verify release readiness on the combined revision.** Run
   PostgreSQL integration checks, configured static build, API image and
   desktop/mobile journey smoke. Recheck live DLT behavior with a bounded
@@ -75,6 +86,8 @@ completion alone.
 - [ ] **B11: Lower-cost backend evaluation.** A Worker/D1 spike was proposed in
   August research. Before implementation, compare it with the actual Go/API/DB
   operating cost and preserve current API, fallback and history contracts.
+  The October audit recommends no database migration now. Revisit storage only
+  when accepted write/moderation requirements exist, with a constitution decision.
   Do not rewrite Go/PostgreSQL based on old free-tier estimates.
 - [ ] **B12: Shared UI tokens/registry.** Start only when another project consumes
   the same components, as specified in [ADR-001](adr/ADR-001-ui-kit-strategy.md).

@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!.next", "!node_modules", "!next-env.d.ts"]
+    "includes": ["**", "!.next", "!.astro", "!out", "!node_modules", "!next-env.d.ts"]
   },
   "formatter": {
     "enabled": true,
@@ -31,10 +31,22 @@
       "preset": "recommended"
     },
     "domains": {
-      "next": "recommended",
       "react": "recommended"
     }
   },
+  "overrides": [
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    }
+  ],
   "assist": {
     "actions": {
       "source": {

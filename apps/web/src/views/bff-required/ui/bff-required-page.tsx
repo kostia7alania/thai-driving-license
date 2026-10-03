@@ -1,5 +1,4 @@
 import { ArrowRight, ExternalLink, ServerOff } from "lucide-react";
-import Link from "next/link";
 
 import {
   OFFICES_PATH,
@@ -41,7 +40,7 @@ export function BffRequiredPage({ toolName }: BffRequiredPageProps) {
             not shown as if they were available.
           </p>
           <div className="tw:mt-8 tw:flex tw:flex-wrap tw:gap-3">
-            <Link
+            <a
               href={OFFICES_PATH}
               className={cn(
                 buttonVariants({ size: "lg" }),
@@ -50,8 +49,8 @@ export function BffRequiredPage({ toolName }: BffRequiredPageProps) {
             >
               Browse DLT offices
               <ArrowRight aria-hidden="true" />
-            </Link>
-            <Link
+            </a>
+            <a
               href="/map"
               className={cn(
                 buttonVariants({ size: "lg", variant: "outline" }),
@@ -59,7 +58,7 @@ export function BffRequiredPage({ toolName }: BffRequiredPageProps) {
               )}
             >
               Open the office map
-            </Link>
+            </a>
           </div>
           <a
             href={OFFICIAL_DLT_BOOKING_URL}

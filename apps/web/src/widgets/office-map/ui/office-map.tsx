@@ -2,7 +2,6 @@
 
 import "leaflet/dist/leaflet.css";
 
-import Link from "next/link";
 import { CircleMarker, MapContainer, Popup, TileLayer } from "react-leaflet";
 
 import type {
@@ -150,7 +149,7 @@ export function OfficeMap({
                   <span className="office-map__popup-actions tw:mt-2 tw:flex tw:flex-wrap tw:gap-2">
                     {PUBLIC_SLOT_TOOLS_ENABLED ? (
                       <>
-                        <Link
+                        <a
                           href={`/calendar?siteId=${office.sit_id}&keyword=${encodeURIComponent(keyword)}`}
                           className={cn(
                             buttonVariants({ size: "sm" }),
@@ -158,8 +157,8 @@ export function OfficeMap({
                           )}
                         >
                           Open calendar
-                        </Link>
-                        <Link
+                        </a>
+                        <a
                           href={`/compare?siteIds=${office.sit_id}&keyword=${encodeURIComponent(keyword)}`}
                           className={cn(
                             buttonVariants({ size: "sm", variant: "outline" }),
@@ -167,8 +166,8 @@ export function OfficeMap({
                           )}
                         >
                           Compare
-                        </Link>
-                        <Link
+                        </a>
+                        <a
                           href={`/history?siteId=${office.sit_id}&keyword=${encodeURIComponent(keyword)}`}
                           className={cn(
                             buttonVariants({ size: "sm", variant: "outline" }),
@@ -176,10 +175,10 @@ export function OfficeMap({
                           )}
                         >
                           History
-                        </Link>
+                        </a>
                       </>
                     ) : detailPath ? (
-                      <Link
+                      <a
                         href={detailPath}
                         className={cn(
                           buttonVariants({ size: "sm" }),
@@ -187,7 +186,7 @@ export function OfficeMap({
                         )}
                       >
                         Office details
-                      </Link>
+                      </a>
                     ) : null}
                   </span>
                 </Popup>
@@ -282,29 +281,29 @@ export function OfficeMap({
                 <span className="office-map__text-actions tw:mt-2 tw:flex tw:flex-wrap tw:gap-2">
                   {PUBLIC_SLOT_TOOLS_ENABLED ? (
                     <>
-                      <Link
+                      <a
                         href={`/calendar?siteId=${office.sit_id}&keyword=${encodeURIComponent(keyword)}`}
                         className="tw:text-primary tw:underline"
                       >
                         Open calendar
-                      </Link>
-                      <Link
+                      </a>
+                      <a
                         href={`/compare?siteIds=${office.sit_id}&keyword=${encodeURIComponent(keyword)}`}
                         className="tw:text-primary tw:underline"
                       >
                         Compare
-                      </Link>
-                      <Link
+                      </a>
+                      <a
                         href={`/history?siteId=${office.sit_id}&keyword=${encodeURIComponent(keyword)}`}
                         className="tw:text-primary tw:underline"
                       >
                         History
-                      </Link>
+                      </a>
                     </>
                   ) : detailPath ? (
-                    <Link href={detailPath} className="tw:text-primary tw:underline">
+                    <a href={detailPath} className="tw:text-primary tw:underline">
                       Office details
-                    </Link>
+                    </a>
                   ) : null}
                 </span>
               </li>

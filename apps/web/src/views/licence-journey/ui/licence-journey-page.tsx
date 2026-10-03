@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import {
   CITY_HUBS,
   cityHubCompareSelection,
@@ -80,13 +78,13 @@ function JourneyLinks({ slugs, label }: { slugs: readonly string[]; label: strin
     <div className="licence-journey__chain tw:flex tw:flex-wrap tw:items-baseline tw:gap-2 tw:text-sm">
       <span className="licence-journey__chain-label tw:text-stone-600">{label}</span>
       {resolved.map((entry) => (
-        <Link
+        <a
           key={entry.slug}
           href={`/${LICENCE_PATH_SEGMENT}/${entry.slug}`}
           className="licence-journey__chain-link tw:text-stone-950 tw:underline tw:underline-offset-4"
         >
           {entry.cardTitle}
-        </Link>
+        </a>
       ))}
     </div>
   );
@@ -105,12 +103,12 @@ export function LicenceJourneyPage({ journey }: { journey: Journey }) {
         <article className="licence-journey__container tw:mx-auto tw:flex tw:w-full tw:max-w-3xl tw:flex-col tw:gap-10 tw:px-5 tw:py-14 tw:sm:px-8">
           <header className="licence-journey__header">
             <p className="licence-journey__breadcrumb tw:text-xs tw:text-stone-600">
-              <Link
+              <a
                 href={`/${LICENCE_PATH_SEGMENT}`}
                 className="tw:text-stone-950 tw:underline tw:underline-offset-4"
               >
                 Licence questions
-              </Link>{" "}
+              </a>{" "}
               / {journey.cardTitle}
             </p>
             <h1 className="licence-journey__title tw:mt-2 tw:text-3xl tw:font-bold tw:tracking-tight">
@@ -179,7 +177,7 @@ export function LicenceJourneyPage({ journey }: { journey: Journey }) {
                   send unchanged.
                 </p>
                 <div className="tw:mt-3 tw:flex tw:flex-wrap tw:gap-3">
-                  <Link
+                  <a
                     href={compareHref({
                       siteIDs: cityHubCompareSelection(bangkok).siteIDs,
                       keyword,
@@ -187,19 +185,19 @@ export function LicenceJourneyPage({ journey }: { journey: Journey }) {
                     className={cn(buttonVariants({ size: "lg" }))}
                   >
                     Compare {bangkok.label} offices
-                  </Link>
-                  <Link
+                  </a>
+                  <a
                     href={OFFICES_PATH}
                     className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
                   >
                     Pick another area
-                  </Link>
-                  <Link
+                  </a>
+                  <a
                     href={AVAILABILITY_GUIDE_PATH}
                     className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
                   >
                     How to read the results
-                  </Link>
+                  </a>
                 </div>
               </>
             ) : keyword ? (
@@ -210,9 +208,9 @@ export function LicenceJourneyPage({ journey }: { journey: Journey }) {
                   choose an office, while current slot dates and booking stay with DLT.
                 </p>
                 <div className="tw:mt-3 tw:flex tw:flex-wrap tw:gap-3">
-                  <Link href={OFFICES_PATH} className={cn(buttonVariants({ size: "lg" }))}>
+                  <a href={OFFICES_PATH} className={cn(buttonVariants({ size: "lg" }))}>
                     Find a DLT office
-                  </Link>
+                  </a>
                   <a
                     href={OFFICIAL_DLT_BOOKING_URL}
                     target="_blank"
@@ -230,18 +228,18 @@ export function LicenceJourneyPage({ journey }: { journey: Journey }) {
                     "The appointment system does not expose this step, so there is no availability view for it."}
                 </p>
                 <div className="tw:mt-3 tw:flex tw:flex-wrap tw:gap-3">
-                  <Link
+                  <a
                     href={OFFICES_PATH}
                     className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
                   >
                     Find the office that serves your area
-                  </Link>
-                  <Link
+                  </a>
+                  <a
                     href={AVAILABILITY_GUIDE_PATH}
                     className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
                   >
                     How to read availability evidence
-                  </Link>
+                  </a>
                 </div>
               </>
             )}
@@ -261,21 +259,21 @@ export function LicenceJourneyPage({ journey }: { journey: Journey }) {
             <ul className="licence-journey__areas tw:mt-3 tw:flex tw:flex-wrap tw:gap-x-5 tw:gap-y-2 tw:text-sm">
               {CITY_HUBS.map((hub) => (
                 <li key={hub.slug}>
-                  <Link
+                  <a
                     href={`${OFFICES_PATH}/${hub.slug}`}
                     className="tw:text-stone-950 tw:underline tw:underline-offset-4"
                   >
                     {hub.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
               <li>
-                <Link
+                <a
                   href={OFFICES_PATH}
                   className="tw:font-medium tw:text-stone-950 tw:underline tw:underline-offset-4"
                 >
                   All areas
-                </Link>
+                </a>
               </li>
             </ul>
           </section>

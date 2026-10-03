@@ -194,7 +194,7 @@ deliberately emit `noindex` metadata to prevent an accidental preview from
 competing with production.
 
 The static `_headers` file supplies basic browser security headers and
-immutable caching for content-hashed Next.js assets. Its referrer policy
+immutable caching for content-hashed Astro assets. Its referrer policy
 preserves the origin required by OpenStreetMap's public tile usage policy.
 
 Deploy previews must either use a separately allowed API origin or accept that

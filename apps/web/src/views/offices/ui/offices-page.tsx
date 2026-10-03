@@ -1,4 +1,4 @@
-import Link from "next/link";
+import type { ReactNode } from "react";
 
 import {
   CITY_HUBS,
@@ -14,7 +14,11 @@ import { buttonVariants } from "@/shared/ui/button";
 import { Card, CardContent, CardHeader } from "@/shared/ui/card";
 import { PublicSiteFooter, PublicSiteHeader } from "@/widgets/public-site-chrome";
 
-export function OfficesPage() {
+export function OfficesPage({
+  freshness = <OfficeDirectoryFreshness />,
+}: {
+  freshness?: ReactNode;
+}) {
   const { totals, generated_at, source } = officeDirectory;
   const captured = generated_at.slice(0, 10);
 
@@ -34,17 +38,17 @@ export function OfficesPage() {
           </p>
           <p className="offices-page__licence tw:mt-3 tw:max-w-2xl tw:text-sm tw:text-stone-600">
             Not sure which appointment you need?{" "}
-            <Link
+            <a
               href={LICENCE_PATH}
               className="offices-page__licence-link tw:text-stone-950 tw:underline tw:underline-offset-4"
             >
               Start from your licence question
-            </Link>
+            </a>
             .
           </p>
         </header>
 
-        <OfficeDirectoryFreshness />
+        {freshness}
 
         <section aria-labelledby="offices-page-areas" className="offices-page__areas">
           <h2
@@ -72,7 +76,7 @@ export function OfficesPage() {
                       <p className="offices-page__card-summary tw:text-sm tw:text-stone-600">
                         {hub.summary}
                       </p>
-                      <Link
+                      <a
                         href={`/offices/${hub.slug}`}
                         className={cn(
                           buttonVariants({ size: "sm" }),
@@ -80,7 +84,7 @@ export function OfficesPage() {
                         )}
                       >
                         Open {hub.label}
-                      </Link>
+                      </a>
                     </CardContent>
                   </Card>
                 </li>
@@ -119,25 +123,25 @@ export function OfficesPage() {
                 Latest office list above shows the most recent successful runtime check.
               </p>
               <p className="offices-page__coverage-links tw:flex tw:flex-wrap tw:gap-3 tw:text-sm">
-                <Link
+                <a
                   href="/offices/all"
                   className="offices-page__coverage-link tw:text-stone-950 tw:underline tw:underline-offset-4"
                 >
                   Every office with a page
-                </Link>
-                <Link
+                </a>
+                <a
                   href="/map"
                   className="offices-page__coverage-link tw:text-stone-950 tw:underline tw:underline-offset-4"
                 >
                   Open the map
-                </Link>
+                </a>
                 {PUBLIC_SLOT_TOOLS_ENABLED ? (
-                  <Link
+                  <a
                     href={compareHref({ siteIDs: [], keyword: DEFAULT_WORK_KEYWORD })}
                     className="offices-page__coverage-link tw:text-stone-950 tw:underline tw:underline-offset-4"
                   >
                     Compare offices
-                  </Link>
+                  </a>
                 ) : null}
               </p>
             </CardContent>

@@ -1,0 +1,35 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import SiteLayout from "@/app/layouts/site-layout.astro";
+import { CITY_HUBS, cityHubOffices, hasBespokeRoute, officeNameOrNull } from "@/entities/dlt";
+import { SITE_URL } from "@/shared/config/site";
+import { breadcrumbList, itemList } from "@/shared/lib/json-ld";
+import { OfficeCityHubPage } from "@/views/office-city-hub";
+
+export const getStaticPaths = (() =>
+  CITY_HUBS.filter((hub) => !hasBespokeRoute(hub)).map((hub) => ({
+    params: { city: hub.slug },
+    props: { hub },
+  }))) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { hub } = Astro.props;
+const path = `/offices/${hub.slug}`;
+const structuredData = [
+  breadcrumbList([
+    { name: "Home", item: `${SITE_URL}/` },
+    { name: "Offices by area", item: `${SITE_URL}/offices` },
+    { name: hub.label, item: `${SITE_URL}${path}` },
+  ]),
+  itemList(
+    hub.title,
+    cityHubOffices(hub).map((office) => ({
+      name: officeNameOrNull(office) ?? `Site ID ${office.sit_id}`,
+    })),
+  ),
+];
+---
+
+<SiteLayout title={hub.title} description={hub.metaDescription} canonical={path} openGraph={{ title: hub.title, description: hub.metaDescription, path }} structuredData={structuredData}>
+  <OfficeCityHubPage hub={hub} />
+</SiteLayout>

@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 
 import {
@@ -22,6 +20,7 @@ import {
 } from "@/entities/dlt";
 import { OfficeSelect } from "@/features/office-select";
 import { AVAILABILITY_GUIDE_PATH, LICENCE_PATH } from "@/shared/config/site";
+import { useBrowserQuery } from "@/shared/lib/browser-navigation";
 import { cn } from "@/shared/lib/utils";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
@@ -54,9 +53,7 @@ function parseHistoryLimit(value: string | null): HistoryLimit {
 }
 
 export function HistoryPage() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { searchParams, updateQuery, queryReady } = useBrowserQuery("push");
   const limitID = useId();
 
   const siteID = parsePositiveSiteID(searchParams.get("siteId"), DEFAULT_SITE_ID);
@@ -72,19 +69,6 @@ export function HistoryPage() {
   const [historyError, setHistoryError] = useState<string | null>(null);
   const historyRequestRef = useRef(0);
   const historyAbortRef = useRef<AbortController | null>(null);
-
-  const updateQuery = useCallback(
-    (updates: Record<string, string | null>) => {
-      const params = new URLSearchParams(searchParams.toString());
-      for (const [name, value] of Object.entries(updates)) {
-        if (value === null) params.delete(name);
-        else params.set(name, value);
-      }
-      const query = params.toString();
-      router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
-    },
-    [pathname, router, searchParams],
-  );
 
   const loadOffices = useCallback(async (signal?: AbortSignal) => {
     setOfficesLoading(true);
@@ -147,12 +131,13 @@ export function HistoryPage() {
   }, [loadOffices]);
 
   useEffect(() => {
+    if (!queryReady) return;
     loadHistory(siteID, keyword, limit);
     return () => {
       historyRequestRef.current++;
       historyAbortRef.current?.abort();
     };
-  }, [keyword, limit, loadHistory, siteID]);
+  }, [keyword, limit, loadHistory, siteID, queryReady]);
 
   const selectedOffice = offices?.data.find((office) => office.sit_id === siteID) ?? null;
   const selectedWorkType = workTypes?.data[0] ?? null;
@@ -182,21 +167,21 @@ export function HistoryPage() {
             data from the DLT upstream.
           </p>
           <p className="history-page__evidence tw:mt-3 tw:text-sm">
-            <Link
+            <a
               href={AVAILABILITY_GUIDE_PATH}
               className="history-page__evidence-guide tw:text-primary tw:underline"
             >
               How to read this data
-            </Link>
+            </a>
           </p>
           <p className="history-page__licence tw:mt-2 tw:max-w-2xl tw:text-sm tw:text-stone-600">
             Timing this around documents that age?{" "}
-            <Link
+            <a
               href={`${LICENCE_PATH}/renew-thai-driving-license`}
               className="history-page__licence-link tw:text-primary tw:underline"
             >
               The renewal journey
-            </Link>{" "}
+            </a>{" "}
             sets out what belongs to DLT.
           </p>
         </header>

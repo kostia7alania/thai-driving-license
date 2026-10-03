@@ -2,7 +2,7 @@
 
 ## Project purpose
 AI-first starter for:
-- Next.js web UI
+- Astro static web UI with selective React islands
 - Go API
 - Postgres
 - OpenAPI-first backend
@@ -13,8 +13,9 @@ AI-first starter for:
 - Keep MVP minimal
 - Do not add Redis, Kafka, NATS, background queues, or auth unless explicitly asked
 - Prefer simple, production-readable code over abstractions
-- Use Go for API and business logic
-- Use Next.js only for UI and thin BFF routes
+- Use Cloudflare Workers for the bounded free API; keep secrets and I/O server-side
+- Public deterministic TypeScript rules may be shared by browser and Worker
+- Preserve existing Go slot/history APIs; do not port or deploy them speculatively
 - Use PostgreSQL as the only datastore in v1
 
 ## Backend conventions
@@ -30,18 +31,20 @@ AI-first starter for:
 - Prefer sqlc + migrations
 
 ## Frontend conventions
-- Next.js App Router
+- Astro static output; React hydration only where interaction requires it
 - TypeScript
 - Node.js 26 (Current line, see `.nvmrc`)
 - Lint/format with Biome (`npm run lint`, `npm run format`); no ESLint/Prettier
 - UI kit: shadcn/ui (Base UI primitives) in `src/shared/ui`; add components via
   `npx shadcn add <name>` (components.json carries aliases and the `tw` prefix)
-- Architecture: FSD layers `app` (routes only) → `views` → `widgets` → `features`
+- Architecture: Astro `pages` are thin route entries; `app` owns global layout/styles.
+  Existing FSD layers `views` → `widgets` → `features`
   → `entities` → `shared`; imports point downward only; slices expose `index.ts`
 - Styling: Tailwind v4 with prefix `tw` (`tw:flex`, `tw:hover:...`); unprefixed
   class names are BEM semantic/test hooks (`slot-calendar__day--full`), never styling
 - See `docs/adr/ADR-001-ui-kit-strategy.md` for the cross-project design rationale
 - Minimal UI, no auth
+- Keep the deployment on Free services; never silently enable a paid fallback
 - Add one playground page to call backend endpoints
 
 ## Deliverables

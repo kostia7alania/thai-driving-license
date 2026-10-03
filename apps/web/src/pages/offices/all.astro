@@ -1,0 +1,19 @@
+---
+import SiteLayout from "@/app/layouts/site-layout.astro";
+import { SITE_URL } from "@/shared/config/site";
+import { breadcrumbList } from "@/shared/lib/json-ld";
+import { OfficeIndexPage } from "@/views/office-index";
+
+const title = "Every Thai DLT office with a page";
+const description =
+  "An A-to-Z index of every land transport office that has a page here, named exactly as the DLT appointment list returns it, with its site ID and whether the captured list had it open for appointments.";
+const structuredData = breadcrumbList([
+  { name: "Home", item: `${SITE_URL}/` },
+  { name: "Offices by area", item: `${SITE_URL}/offices` },
+  { name: "Every office with a page", item: `${SITE_URL}/offices/all` },
+]);
+---
+
+<SiteLayout title={title} description={description} canonical="/offices/all" openGraph={{ title, description, path: "/offices/all" }} structuredData={structuredData}>
+  <OfficeIndexPage />
+</SiteLayout>

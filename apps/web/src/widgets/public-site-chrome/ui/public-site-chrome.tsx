@@ -1,5 +1,4 @@
 import { ExternalLink } from "lucide-react";
-import Link from "next/link";
 
 import {
   APPOINTMENTS_PATH,
@@ -32,7 +31,7 @@ export function PublicSiteHeader() {
   return (
     <header className="public-site-header tw:border-b tw:border-stone-900/10 tw:bg-[#f5f1e8]/95">
       <div className="public-site-header__inner tw:mx-auto tw:flex tw:max-w-7xl tw:flex-wrap tw:items-center tw:justify-between tw:gap-4 tw:px-5 tw:py-4 tw:sm:px-8">
-        <Link
+        <a
           href="/"
           className="public-site-header__brand tw:flex tw:items-center tw:gap-3 tw:font-semibold tw:tracking-tight tw:text-stone-950"
         >
@@ -41,19 +40,19 @@ export function PublicSiteHeader() {
             className="public-site-header__signal tw:size-2.5 tw:rounded-full tw:bg-emerald-600 tw:ring-4 tw:ring-emerald-600/15"
           />
           {SITE_NAME}
-        </Link>
+        </a>
         <nav
           aria-label="Public navigation"
           className="public-site-header__nav tw:flex tw:flex-wrap tw:items-center tw:gap-x-5 tw:gap-y-2 tw:text-sm tw:font-medium tw:text-stone-600"
         >
           {PUBLIC_NAVIGATION.map((item) => (
-            <Link
+            <a
               key={item.href}
               href={item.href}
               className="public-site-header__link tw:rounded-sm tw:underline-offset-4 tw:hover:text-stone-950 tw:hover:underline tw:focus-visible:outline-2 tw:focus-visible:outline-offset-4"
             >
               {item.label}
-            </Link>
+            </a>
           ))}
         </nav>
       </div>
@@ -77,12 +76,12 @@ export function PublicSiteFooter() {
           </p>
         </div>
         <div className="tw:flex tw:flex-wrap tw:items-center tw:gap-4">
-          <Link
+          <a
             href={AVAILABILITY_GUIDE_PATH}
             className="public-site-footer__evidence-guide tw:text-sm tw:font-semibold tw:text-white tw:underline tw:decoration-emerald-300 tw:decoration-2 tw:underline-offset-4"
           >
             How to read the data
-          </Link>
+          </a>
           <a
             href={OFFICIAL_DLT_BOOKING_URL}
             target="_blank"

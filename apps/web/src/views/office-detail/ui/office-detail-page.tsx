@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import {
   type CityHub,
   COMPARE_MAX_OFFICES,
@@ -85,18 +83,18 @@ export function OfficeDetailPage({ office, hub: hubOverride }: OfficeDetailPageP
       <main className="office-detail__container tw:mx-auto tw:flex tw:w-full tw:max-w-3xl tw:flex-col tw:gap-10 tw:px-5 tw:py-14 tw:sm:px-8">
         <header className="office-detail__header">
           <p className="office-detail__breadcrumb tw:mt-4 tw:text-xs tw:text-stone-600">
-            <Link href="/offices" className="tw:text-stone-950 tw:underline tw:underline-offset-4">
+            <a href="/offices" className="tw:text-stone-950 tw:underline tw:underline-offset-4">
               Offices by area
-            </Link>{" "}
+            </a>{" "}
             /{" "}
             {hub ? (
               <>
-                <Link
+                <a
                   href={`/offices/${hub.slug}`}
                   className="tw:text-stone-950 tw:underline tw:underline-offset-4"
                 >
                   {hub.label}
-                </Link>{" "}
+                </a>{" "}
                 /{" "}
               </>
             ) : null}
@@ -203,15 +201,15 @@ export function OfficeDetailPage({ office, hub: hubOverride }: OfficeDetailPageP
           </p>
           <div className="office-detail__actions tw:mt-3 tw:flex tw:flex-wrap tw:gap-3">
             {PUBLIC_SLOT_TOOLS_ENABLED ? (
-              <Link
+              <a
                 href={calendarHref({ siteID: office.sit_id, keyword: DEFAULT_WORK_KEYWORD })}
                 className={cn(buttonVariants({ size: "lg" }), "office-detail__action")}
               >
                 Open this office&rsquo;s calendar
-              </Link>
+              </a>
             ) : null}
             {office.geo_precision ? (
-              <Link
+              <a
                 href={mapOfficeHref({ siteID: office.sit_id, keyword: DEFAULT_WORK_KEYWORD })}
                 className={cn(
                   buttonVariants({
@@ -222,11 +220,11 @@ export function OfficeDetailPage({ office, hub: hubOverride }: OfficeDetailPageP
                 )}
               >
                 Find it on the map
-              </Link>
+              </a>
             ) : null}
             {PUBLIC_SLOT_TOOLS_ENABLED ? (
               <>
-                <Link
+                <a
                   href={historyHref({ siteID: office.sit_id, keyword: DEFAULT_WORK_KEYWORD })}
                   className={cn(
                     buttonVariants({ size: "lg", variant: "outline" }),
@@ -234,8 +232,8 @@ export function OfficeDetailPage({ office, hub: hubOverride }: OfficeDetailPageP
                   )}
                 >
                   See stored observations
-                </Link>
-                <Link
+                </a>
+                <a
                   href={compareHref({ siteIDs: compareSiteIDs, keyword: DEFAULT_WORK_KEYWORD })}
                   className={cn(
                     buttonVariants({ size: "lg", variant: "outline" }),
@@ -243,7 +241,7 @@ export function OfficeDetailPage({ office, hub: hubOverride }: OfficeDetailPageP
                   )}
                 >
                   Compare with alternatives
-                </Link>
+                </a>
               </>
             ) : (
               <a
@@ -288,12 +286,12 @@ export function OfficeDetailPage({ office, hub: hubOverride }: OfficeDetailPageP
             <ul className="office-detail__work-list tw:mt-3 tw:flex tw:flex-wrap tw:gap-3 tw:text-sm">
               {WORK_KEYWORDS.map((keyword) => (
                 <li key={keyword} className="office-detail__work-item">
-                  <Link
+                  <a
                     href={calendarHref({ siteID: office.sit_id, keyword })}
                     className="office-detail__work-link tw:text-stone-950 tw:underline tw:underline-offset-4"
                   >
                     Calendar for <span className="tw:font-mono">{keyword.trim()}</span>
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -311,23 +309,20 @@ export function OfficeDetailPage({ office, hub: hubOverride }: OfficeDetailPageP
             {hub ? (
               <>
                 This office is listed on the{" "}
-                <Link
+                <a
                   href={`/offices/${hub.slug}`}
                   className="tw:text-stone-950 tw:underline tw:underline-offset-4"
                 >
                   {hub.title}
-                </Link>{" "}
+                </a>{" "}
                 page, together with the alternatives worth checking in the same trip.
               </>
             ) : (
               <>
                 No published area page covers this office yet. The{" "}
-                <Link
-                  href="/offices"
-                  className="tw:text-stone-950 tw:underline tw:underline-offset-4"
-                >
+                <a href="/offices" className="tw:text-stone-950 tw:underline tw:underline-offset-4">
                   areas we do publish
-                </Link>{" "}
+                </a>{" "}
                 are the ones where the captured list proves usable coverage.
               </>
             )}
@@ -352,12 +347,12 @@ export function OfficeDetailPage({ office, hub: hubOverride }: OfficeDetailPageP
               const neighbourName = neighbour ? officeNameOrNull(neighbour) : null;
               return (
                 <li key={entry.sit_id} className="tw:flex tw:flex-wrap tw:items-baseline tw:gap-2">
-                  <Link
+                  <a
                     href={officeDetailPath(entry.sit_id)}
                     className="tw:text-stone-950 tw:underline tw:underline-offset-4"
                   >
                     {neighbourName ?? `Site ID ${entry.sit_id}`}
-                  </Link>
+                  </a>
                   <span className="tw:font-mono tw:text-xs tw:text-stone-600">
                     {entry.km < 1 ? "under 1 km" : `${Math.round(entry.km)} km`}
                   </span>
@@ -388,12 +383,12 @@ export function OfficeDetailPage({ office, hub: hubOverride }: OfficeDetailPageP
                 </li>
                 <li>
                   Which documents, tests, or fees apply here — those change; see the{" "}
-                  <Link
+                  <a
                     href="/guides"
                     className="tw:text-stone-950 tw:underline tw:underline-offset-4"
                   >
                     guides
-                  </Link>{" "}
+                  </a>{" "}
                   for what is verifiable and what is not.
                 </li>
                 <li>

@@ -8,7 +8,6 @@ import {
   Route,
   ShieldCheck,
 } from "lucide-react";
-import Link from "next/link";
 
 import { PUBLIC_SLOT_TOOLS_ENABLED } from "@/shared/config/site";
 import { cn } from "@/shared/lib/utils";
@@ -49,7 +48,7 @@ export function BangkokOfficesPage() {
               </p>
               <div className="tw:mt-9 tw:flex tw:flex-wrap tw:gap-3">
                 {PUBLIC_SLOT_TOOLS_ENABLED ? (
-                  <Link
+                  <a
                     href={BANGKOK_COMPARE_PATH}
                     className={cn(
                       buttonVariants({ size: "lg" }),
@@ -58,9 +57,9 @@ export function BangkokOfficesPage() {
                   >
                     Compare all five
                     <ArrowRight aria-hidden="true" />
-                  </Link>
+                  </a>
                 ) : null}
-                <Link
+                <a
                   href={BANGKOK_MAP_PATH}
                   className={cn(
                     buttonVariants({
@@ -75,7 +74,7 @@ export function BangkokOfficesPage() {
                 >
                   Map all five
                   <MapIcon aria-hidden="true" />
-                </Link>
+                </a>
               </div>
             </div>
 
@@ -194,7 +193,7 @@ export function BangkokOfficesPage() {
                         className="tw:mt-6 tw:grid tw:gap-2"
                       >
                         {PUBLIC_SLOT_TOOLS_ENABLED ? (
-                          <Link
+                          <a
                             href={office.links.calendar}
                             className="tw:flex tw:items-center tw:justify-between tw:gap-4 tw:rounded-xl tw:border tw:border-white/15 tw:px-4 tw:py-3 tw:text-sm tw:font-medium tw:hover:bg-white tw:hover:text-stone-950 tw:focus-visible:outline-2 tw:focus-visible:outline-offset-2 tw:focus-visible:outline-white"
                           >
@@ -203,9 +202,9 @@ export function BangkokOfficesPage() {
                               Open Calendar
                             </span>
                             <ArrowRight aria-hidden="true" className="tw:size-4" />
-                          </Link>
+                          </a>
                         ) : null}
-                        <Link
+                        <a
                           href={office.links.map}
                           className="tw:flex tw:items-center tw:justify-between tw:gap-4 tw:rounded-xl tw:border tw:border-white/15 tw:px-4 tw:py-3 tw:text-sm tw:font-medium tw:hover:bg-white tw:hover:text-stone-950 tw:focus-visible:outline-2 tw:focus-visible:outline-offset-2 tw:focus-visible:outline-white"
                         >
@@ -214,9 +213,9 @@ export function BangkokOfficesPage() {
                             Locate on Map
                           </span>
                           <ArrowRight aria-hidden="true" className="tw:size-4" />
-                        </Link>
+                        </a>
                         {PUBLIC_SLOT_TOOLS_ENABLED ? (
-                          <Link
+                          <a
                             href={office.links.history}
                             className="tw:flex tw:items-center tw:justify-between tw:gap-4 tw:rounded-xl tw:border tw:border-white/15 tw:px-4 tw:py-3 tw:text-sm tw:font-medium tw:hover:bg-white tw:hover:text-stone-950 tw:focus-visible:outline-2 tw:focus-visible:outline-offset-2 tw:focus-visible:outline-white"
                           >
@@ -225,7 +224,7 @@ export function BangkokOfficesPage() {
                               Open History
                             </span>
                             <ArrowRight aria-hidden="true" className="tw:size-4" />
-                          </Link>
+                          </a>
                         ) : null}
                       </nav>
                     </div>

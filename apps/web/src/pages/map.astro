@@ -1,0 +1,16 @@
+---
+import SiteLayout from "@/app/layouts/site-layout.astro";
+import ToolLayout from "@/app/layouts/tool-layout.astro";
+import { PUBLIC_SLOT_TOOLS_ENABLED } from "@/shared/config/site";
+import { MapPage } from "@/views/map";
+
+const description = PUBLIC_SLOT_TOOLS_ENABLED
+  ? "Filter Thai DLT offices by five last-known stored availability states, with map and text views."
+  : "Find Thai DLT offices on a labelled map with an accessible text alternative.";
+---
+
+<SiteLayout title="Thai DLT Office Map" description={description} canonical="/map">
+  <ToolLayout name="map">
+    <MapPage client:load />
+  </ToolLayout>
+</SiteLayout>

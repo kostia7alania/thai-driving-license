@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
@@ -24,6 +22,7 @@ import {
 import { OfficeSelect } from "@/features/office-select";
 import { WorkOptionFilter } from "@/features/work-option-filter";
 import { AVAILABILITY_GUIDE_PATH, LICENCE_PATH } from "@/shared/config/site";
+import { useBrowserQuery } from "@/shared/lib/browser-navigation";
 import { todayISO } from "@/shared/lib/calendar";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
@@ -33,9 +32,7 @@ const DEFAULT_SITE_ID = 47;
 const GROUP_ID = 4;
 
 export function CalendarPage() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { searchParams, updateQuery, queryReady } = useBrowserQuery();
   const siteId = parsePositiveSiteID(searchParams.get("siteId"), DEFAULT_SITE_ID);
   const keyword = parseWorkKeyword(searchParams.get("keyword"));
   const availableOnly = parseQueryFlag(searchParams.get("available"));
@@ -53,19 +50,6 @@ export function CalendarPage() {
   // overwriting the state of a newer selection.
   const calendarRequestRef = useRef(0);
   const calendarAbortRef = useRef<AbortController | null>(null);
-
-  const updateQuery = useCallback(
-    (updates: Record<string, string | null>) => {
-      const params = new URLSearchParams(searchParams.toString());
-      for (const [name, value] of Object.entries(updates)) {
-        if (value === null) params.delete(name);
-        else params.set(name, value);
-      }
-      const query = params.toString();
-      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
-    },
-    [pathname, router, searchParams],
-  );
 
   const loadOffices = useCallback(async (signal?: AbortSignal) => {
     setOfficesLoading(true);
@@ -128,12 +112,13 @@ export function CalendarPage() {
   }, [loadOffices]);
 
   useEffect(() => {
+    if (!queryReady) return;
     loadCalendar(siteId, keyword);
     return () => {
       calendarRequestRef.current++;
       calendarAbortRef.current?.abort();
     };
-  }, [siteId, keyword, loadCalendar]);
+  }, [siteId, keyword, loadCalendar, queryReady]);
 
   const selectedOffice = offices?.data.find((office) => office.sit_id === siteId) ?? null;
   const snapshotSources = [
@@ -157,28 +142,28 @@ export function CalendarPage() {
             live data is not available.
           </p>
           <p className="calendar-page__evidence tw:mt-3 tw:text-sm">
-            <Link
+            <a
               href={AVAILABILITY_GUIDE_PATH}
               className="calendar-page__evidence-guide tw:text-primary tw:underline"
             >
               How to read this data
-            </Link>
+            </a>
           </p>
           <p className="calendar-page__licence tw:mt-2 tw:max-w-2xl tw:text-sm tw:text-stone-600">
             Working out which work option applies?{" "}
-            <Link
+            <a
               href={`${LICENCE_PATH}/new-thai-driving-license`}
               className="calendar-page__licence-link tw:text-primary tw:underline"
             >
               Getting a first licence
-            </Link>{" "}
+            </a>{" "}
             and{" "}
-            <Link
+            <a
               href={`${LICENCE_PATH}/renew-thai-driving-license`}
               className="calendar-page__licence-link tw:text-primary tw:underline"
             >
               renewing a licence
-            </Link>{" "}
+            </a>{" "}
             explain what each one covers.
           </p>
         </div>
@@ -231,12 +216,12 @@ export function CalendarPage() {
                     tyw_id {workTypeId}
                   </span>
                 </div>
-                <Link
+                <a
                   href={`/history?siteId=${siteId}&keyword=${encodeURIComponent(keyword)}`}
                   className="calendar-page__history-link tw:mt-1 tw:self-start tw:text-xs tw:font-medium tw:text-primary tw:underline"
                 >
                   See stored history
-                </Link>
+                </a>
               </Card>
             )}
 

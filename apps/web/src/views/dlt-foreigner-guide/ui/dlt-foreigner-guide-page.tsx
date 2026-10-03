@@ -1,5 +1,4 @@
 import { ArrowRight, ExternalLink, Info, LockKeyhole, TriangleAlert } from "lucide-react";
-import Link from "next/link";
 
 import {
   APPOINTMENTS_PATH,
@@ -38,7 +37,7 @@ export function DLTForeignerGuidePage() {
                 : null}
             </p>
             <div className="tw:mt-8 tw:flex tw:flex-wrap tw:gap-3">
-              <Link
+              <a
                 href={PUBLIC_SLOT_TOOLS_ENABLED ? "/calendar" : OFFICES_PATH}
                 className={cn(
                   buttonVariants({ size: "lg" }),
@@ -47,8 +46,8 @@ export function DLTForeignerGuidePage() {
               >
                 {PUBLIC_SLOT_TOOLS_ENABLED ? "Check availability" : "Browse DLT offices"}
                 <ArrowRight aria-hidden="true" />
-              </Link>
-              <Link
+              </a>
+              <a
                 href={AVAILABILITY_GUIDE_PATH}
                 className={cn(
                   buttonVariants({ size: "lg", variant: "outline" }),
@@ -56,8 +55,8 @@ export function DLTForeignerGuidePage() {
                 )}
               >
                 How to read results
-              </Link>
-              <Link
+              </a>
+              <a
                 href={APPOINTMENTS_PATH}
                 className={cn(
                   buttonVariants({ size: "lg", variant: "outline" }),
@@ -65,7 +64,7 @@ export function DLTForeignerGuidePage() {
                 )}
               >
                 Appointment search overview
-              </Link>
+              </a>
             </div>
           </header>
 

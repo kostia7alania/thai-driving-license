@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import {
   AVAILABILITY_GUIDE_PATH,
   AVAILABILITY_NOTICE,
@@ -31,12 +29,12 @@ export function GuidesPage() {
           </p>
           <p className="guides-page__licence tw:mt-3 tw:text-sm tw:text-stone-600">
             Looking for the steps rather than the reading?{" "}
-            <Link
+            <a
               href={LICENCE_PATH}
               className="guides-page__licence-link tw:text-stone-950 tw:underline tw:underline-offset-4"
             >
               Go to the licence journeys
-            </Link>
+            </a>
             .
           </p>
         </header>
@@ -62,7 +60,7 @@ export function GuidesPage() {
                   <p className="guides-page__card-intro tw:text-sm tw:text-stone-600">
                     How to interpret the evidence this service shows before you act on it.
                   </p>
-                  <Link
+                  <a
                     href={AVAILABILITY_GUIDE_PATH}
                     className={cn(
                       buttonVariants({ size: "sm", variant: "outline" }),
@@ -70,7 +68,7 @@ export function GuidesPage() {
                     )}
                   >
                     Read the guide
-                  </Link>
+                  </a>
                 </CardContent>
               </Card>
             </li>
@@ -89,7 +87,7 @@ export function GuidesPage() {
                     What the official Smart Queue service is, what this project can and cannot show
                     about it, and where the hand-off happens.
                   </p>
-                  <Link
+                  <a
                     href={FOREIGNER_GUIDE_PATH}
                     className={cn(
                       buttonVariants({ size: "sm", variant: "outline" }),
@@ -97,7 +95,7 @@ export function GuidesPage() {
                     )}
                   >
                     Read the guide
-                  </Link>
+                  </a>
                 </CardContent>
               </Card>
             </li>

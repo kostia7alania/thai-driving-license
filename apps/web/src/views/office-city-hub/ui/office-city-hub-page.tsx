@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import {
   type CityHub,
   COMPARE_MAX_OFFICES,
@@ -48,9 +46,9 @@ export function OfficeCityHubPage({ hub }: OfficeCityHubPageProps) {
       <main className="office-city-hub__container tw:mx-auto tw:flex tw:w-full tw:max-w-5xl tw:flex-col tw:gap-10 tw:px-5 tw:py-14 tw:sm:px-8">
         <header className="office-city-hub__header">
           <p className="office-city-hub__breadcrumb tw:mt-4 tw:text-xs tw:text-stone-600">
-            <Link href="/offices" className="tw:text-stone-950 tw:underline tw:underline-offset-4">
+            <a href="/offices" className="tw:text-stone-950 tw:underline tw:underline-offset-4">
               Offices by area
-            </Link>{" "}
+            </a>{" "}
             / {hub.label}
           </p>
           <h1 className="office-city-hub__title tw:mt-2 tw:text-3xl tw:font-bold">{hub.title}</h1>
@@ -73,15 +71,15 @@ export function OfficeCityHubPage({ hub }: OfficeCityHubPageProps) {
           </h2>
           <div className="office-city-hub__actions tw:mt-3 tw:flex tw:flex-wrap tw:gap-3">
             {PUBLIC_SLOT_TOOLS_ENABLED ? (
-              <Link
+              <a
                 href={compareHref({ siteIDs: selection.siteIDs, keyword: DEFAULT_WORK_KEYWORD })}
                 className={cn(buttonVariants({ size: "lg" }), "office-city-hub__action")}
               >
                 Compare offices
-              </Link>
+              </a>
             ) : null}
             {PUBLIC_SLOT_TOOLS_ENABLED && firstOpen ? (
-              <Link
+              <a
                 href={calendarHref({ siteID: firstOpen.sit_id, keyword: DEFAULT_WORK_KEYWORD })}
                 className={cn(
                   buttonVariants({ size: "lg", variant: "outline" }),
@@ -89,9 +87,9 @@ export function OfficeCityHubPage({ hub }: OfficeCityHubPageProps) {
                 )}
               >
                 Check availability
-              </Link>
+              </a>
             ) : null}
-            <Link
+            <a
               href={mapHref({ keyword: DEFAULT_WORK_KEYWORD, search: hub.mapSearch })}
               className={cn(
                 buttonVariants({
@@ -102,7 +100,7 @@ export function OfficeCityHubPage({ hub }: OfficeCityHubPageProps) {
               )}
             >
               Open the map
-            </Link>
+            </a>
             {!PUBLIC_SLOT_TOOLS_ENABLED ? (
               <a
                 href={OFFICIAL_DLT_BOOKING_URL}
@@ -148,19 +146,19 @@ export function OfficeCityHubPage({ hub }: OfficeCityHubPageProps) {
           <p className="office-city-hub__journeys tw:mt-4 tw:max-w-2xl tw:text-sm tw:text-stone-600">
             These counters are reached from the two journeys the appointment system exposes work
             options for:{" "}
-            <Link
+            <a
               href={`${LICENCE_PATH}/new-thai-driving-license`}
               className="office-city-hub__journey-link tw:text-stone-950 tw:underline tw:underline-offset-4"
             >
               getting a first licence
-            </Link>{" "}
+            </a>{" "}
             and{" "}
-            <Link
+            <a
               href={`${LICENCE_PATH}/renew-thai-driving-license`}
               className="office-city-hub__journey-link tw:text-stone-950 tw:underline tw:underline-offset-4"
             >
               renewing one
-            </Link>
+            </a>
             .
           </p>
         </section>
@@ -181,22 +179,22 @@ export function OfficeCityHubPage({ hub }: OfficeCityHubPageProps) {
             <ul className="office-city-hub__work-list tw:mt-3 tw:flex tw:flex-wrap tw:gap-3 tw:text-sm">
               {WORK_KEYWORDS.map((keyword) => (
                 <li key={keyword} className="office-city-hub__work-item">
-                  <Link
+                  <a
                     href={compareHref({ siteIDs: selection.siteIDs, keyword })}
                     className="office-city-hub__work-link tw:text-stone-950 tw:underline tw:underline-offset-4"
                   >
                     Compare offices for <span className="tw:font-mono">{keyword.trim()}</span>
-                  </Link>
+                  </a>
                 </li>
               ))}
               {firstOpen ? (
                 <li className="office-city-hub__work-item">
-                  <Link
+                  <a
                     href={historyHref({ siteID: firstOpen.sit_id, keyword: DEFAULT_WORK_KEYWORD })}
                     className="office-city-hub__work-link tw:text-stone-950 tw:underline tw:underline-offset-4"
                   >
                     See stored history
-                  </Link>
+                  </a>
                 </li>
               ) : null}
             </ul>
@@ -224,12 +222,12 @@ export function OfficeCityHubPage({ hub }: OfficeCityHubPageProps) {
                 </li>
                 <li>
                   Which documents, tests, or fees apply — those change; see the{" "}
-                  <Link
+                  <a
                     href="/guides"
                     className="tw:text-stone-950 tw:underline tw:underline-offset-4"
                   >
                     guides
-                  </Link>{" "}
+                  </a>{" "}
                   for what is verifiable and what is not.
                 </li>
                 <li>Whether a slot you see will still exist when you reach the booking flow.</li>

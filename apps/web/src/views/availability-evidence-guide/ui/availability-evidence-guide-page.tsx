@@ -8,7 +8,6 @@ import {
   ShieldCheck,
   TimerReset,
 } from "lucide-react";
-import Link from "next/link";
 
 import {
   AVAILABILITY_GUIDE_REVIEWED_ON,
@@ -70,19 +69,19 @@ export function AvailabilityEvidenceGuidePage() {
                     : null}
                 </p>
                 <div className="tw:mt-9 tw:flex tw:flex-wrap tw:gap-3">
-                  <Link
+                  <a
                     href={PUBLIC_SLOT_TOOLS_ENABLED ? "/calendar" : OFFICES_PATH}
                     className="tw:inline-flex tw:h-11 tw:items-center tw:gap-2 tw:rounded-full tw:bg-emerald-400 tw:px-5 tw:text-sm tw:font-semibold tw:text-stone-950 tw:hover:bg-emerald-300 tw:focus-visible:outline-2 tw:focus-visible:outline-offset-4 tw:focus-visible:outline-white"
                   >
                     {PUBLIC_SLOT_TOOLS_ENABLED ? "Open Calendar" : "Browse DLT offices"}
                     <ArrowRight aria-hidden="true" className="tw:size-4" />
-                  </Link>
-                  <Link
+                  </a>
+                  <a
                     href="#sources"
                     className="tw:inline-flex tw:h-11 tw:items-center tw:rounded-full tw:border tw:border-white/30 tw:px-5 tw:text-sm tw:font-semibold tw:text-white tw:hover:bg-white/10 tw:focus-visible:outline-2 tw:focus-visible:outline-offset-4 tw:focus-visible:outline-white"
                   >
                     Start with source
-                  </Link>
+                  </a>
                 </div>
               </div>
 
@@ -107,7 +106,7 @@ export function AvailabilityEvidenceGuidePage() {
                 <ol className="tw:grid tw:gap-3">
                   {GUIDE_SECTIONS.map((section, index) => (
                     <li key={section.href}>
-                      <Link
+                      <a
                         href={section.href}
                         className="tw:flex tw:items-baseline tw:gap-3 tw:rounded-sm tw:text-sm tw:font-medium tw:text-stone-700 tw:underline-offset-4 tw:hover:text-emerald-800 tw:hover:underline tw:focus-visible:outline-2 tw:focus-visible:outline-offset-4"
                       >
@@ -115,7 +114,7 @@ export function AvailabilityEvidenceGuidePage() {
                           {String(index + 1).padStart(2, "0")}
                         </span>
                         {section.label}
-                      </Link>
+                      </a>
                     </li>
                   ))}
                 </ol>
@@ -272,12 +271,12 @@ export function AvailabilityEvidenceGuidePage() {
                               className="tw:px-5 tw:py-5 tw:align-top tw:font-semibold"
                             >
                               {available ? (
-                                <Link
+                                <a
                                   href={tool.href}
                                   className="tw:text-emerald-800 tw:underline tw:decoration-emerald-600 tw:decoration-2 tw:underline-offset-4"
                                 >
                                   {tool.label}
-                                </Link>
+                                </a>
                               ) : (
                                 <span>
                                   {tool.label}{" "}
@@ -378,18 +377,18 @@ export function AvailabilityEvidenceGuidePage() {
                       Choose an office here. Complete the appointment there.
                     </h2>
                     <div className="tw:mt-6 tw:flex tw:flex-wrap tw:gap-x-6 tw:gap-y-3 tw:text-sm">
-                      <Link
+                      <a
                         href={BANGKOK_OFFICES_PATH}
                         className="tw:font-semibold tw:underline tw:decoration-emerald-300 tw:decoration-2 tw:underline-offset-4"
                       >
                         Bangkok office hub
-                      </Link>
-                      <Link
+                      </a>
+                      <a
                         href={FOREIGNER_GUIDE_PATH}
                         className="tw:font-semibold tw:underline tw:decoration-emerald-300 tw:decoration-2 tw:underline-offset-4"
                       >
                         Foreigner guide
-                      </Link>
+                      </a>
                     </div>
                   </div>
                   <a

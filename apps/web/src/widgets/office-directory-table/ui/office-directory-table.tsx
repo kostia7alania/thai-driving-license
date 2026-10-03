@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import {
   calendarHref,
   type DirectoryOffice,
@@ -104,7 +102,7 @@ export function OfficeDirectoryTable({ offices, keyword, caption }: OfficeDirect
                   <span className="tw:flex tw:flex-wrap tw:gap-2">
                     {/* Only offices with a generated page get a Details link. */}
                     {hasOfficeDetailPage(office) ? (
-                      <Link
+                      <a
                         href={officeDetailPath(office.sit_id)}
                         aria-label={`Details for ${officeNameOrNull(office) ?? `site ID ${office.sit_id}`}`}
                         className={cn(
@@ -113,10 +111,10 @@ export function OfficeDirectoryTable({ offices, keyword, caption }: OfficeDirect
                         )}
                       >
                         Details
-                      </Link>
+                      </a>
                     ) : null}
                     {PUBLIC_SLOT_TOOLS_ENABLED ? (
-                      <Link
+                      <a
                         href={calendarHref({ siteID: office.sit_id, keyword })}
                         className={cn(
                           buttonVariants({ size: "sm" }),
@@ -124,10 +122,10 @@ export function OfficeDirectoryTable({ offices, keyword, caption }: OfficeDirect
                         )}
                       >
                         Calendar
-                      </Link>
+                      </a>
                     ) : null}
                     {office.geo_precision ? (
-                      <Link
+                      <a
                         href={mapOfficeHref({ siteID: office.sit_id, keyword })}
                         className={cn(
                           buttonVariants({ size: "sm", variant: "outline" }),
@@ -135,7 +133,7 @@ export function OfficeDirectoryTable({ offices, keyword, caption }: OfficeDirect
                         )}
                       >
                         Map
-                      </Link>
+                      </a>
                     ) : null}
                   </span>
                 </td>

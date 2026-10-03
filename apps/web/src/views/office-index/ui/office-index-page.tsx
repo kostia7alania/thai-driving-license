@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import {
   type DirectoryOffice,
   isAppointmentOpen,
@@ -82,12 +80,12 @@ export function OfficeIndexPage() {
       <main className="office-index__container tw:mx-auto tw:flex tw:w-full tw:max-w-5xl tw:flex-col tw:gap-10 tw:px-5 tw:py-14 tw:sm:px-8">
         <header className="office-index__header">
           <p className="office-index__breadcrumb tw:mt-4 tw:text-xs tw:text-stone-600">
-            <Link
+            <a
               href={OFFICES_PATH}
               className="office-index__breadcrumb-link tw:text-stone-950 tw:underline tw:underline-offset-4"
             >
               Offices by area
-            </Link>{" "}
+            </a>{" "}
             / Every office with a page
           </p>
           <h1 className="office-index__title tw:mt-2 tw:text-3xl tw:font-bold">
@@ -119,12 +117,12 @@ export function OfficeIndexPage() {
           </p>
           <p className="office-index__licence tw:mt-3 tw:max-w-2xl tw:text-sm tw:text-stone-600">
             If you are not yet sure which appointment applies to you,{" "}
-            <Link
+            <a
               href={LICENCE_PATH}
               className="office-index__licence-link tw:text-stone-950 tw:underline tw:underline-offset-4"
             >
               start from your licence question
-            </Link>{" "}
+            </a>{" "}
             instead of from an office.
           </p>
           <nav
@@ -169,12 +167,12 @@ export function OfficeIndexPage() {
                     "tw:flex tw:flex-wrap tw:items-baseline tw:gap-x-3 tw:gap-y-1",
                   )}
                 >
-                  <Link
+                  <a
                     href={officeDetailPath(row.siteID)}
                     className="office-index__row-link tw:text-stone-950 tw:underline tw:underline-offset-4"
                   >
                     {row.name}
-                  </Link>
+                  </a>
                   <span className="office-index__row-id tw:font-mono tw:text-xs tw:text-stone-600">
                     #{row.siteID}
                   </span>

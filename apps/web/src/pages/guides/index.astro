@@ -1,0 +1,24 @@
+---
+import SiteLayout from "@/app/layouts/site-layout.astro";
+import { AVAILABILITY_GUIDE_PATH, FOREIGNER_GUIDE_PATH, SITE_URL } from "@/shared/config/site";
+import { breadcrumbList, itemList } from "@/shared/lib/json-ld";
+import { GuidesPage } from "@/views/guides";
+
+const title = "Thai DLT licence guides";
+const description =
+  "Guides that mark every statement as observed appointment data, a Department of Land Transport decision, or a dated third-party report.";
+const structuredData = [
+  breadcrumbList([
+    { name: "Home", item: `${SITE_URL}/` },
+    { name: "Guides", item: `${SITE_URL}/guides` },
+  ]),
+  itemList("Published guides", [
+    { name: "How to read DLT availability", url: `${SITE_URL}${AVAILABILITY_GUIDE_PATH}` },
+    { name: "DLT Smart Queue for foreigners", url: `${SITE_URL}${FOREIGNER_GUIDE_PATH}` },
+  ]),
+];
+---
+
+<SiteLayout title={title} description={description} canonical="/guides" openGraph={{ title, description, path: "/guides" }} structuredData={structuredData}>
+  <GuidesPage />
+</SiteLayout>

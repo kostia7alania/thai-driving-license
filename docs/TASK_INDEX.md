@@ -1,11 +1,28 @@
 # Task Index
 
-Updated: 2026-09-22.
+Updated: 2026-10-03.
 
 ## Active Feature
 
-No feature is active. Select a ready backlog item and create its Spec Kit
-artifacts before changing product behaviour.
+[Feature 025](../specs/025-astro-static-migration/spec.md) implements the owner's
+approved Astro static migration. Local checks pass; publication, CI and deployment
+to the existing free Worker are now authorized. Follow its tasks for release verification and
+delivery status. Constitution 1.2.0 allows the bounded public TypeScript rules
+shared by browser and Worker; existing Go/PostgreSQL slot/history code stays.
+No new database, paid model or full-BFF deployment is part of this migration.
+
+[Feature 024](../specs/024-guided-self-service/spec.md) is a draft discovery
+story map for a useful self-service licence plan in the first five minutes.
+Its [research](research/2026-09-26-first-five-minutes.md), plan and tasks capture
+the owner's AI-assisted journey, provider details, reports and MCP ideas.
+Research is complete; planner implementation has not started. Start with one sourced route,
+not every conditional story. The ownership decision is now recorded in Feature 025.
+
+The [current technology audit](research/2026-10-02-technology-audit.md) separates
+the free static runtime from the optional Go/PostgreSQL capabilities, proposes
+bounded model escalation and client-inference MCP, and records an existing-Next
+security update. The owner subsequently accepted Astro and bounded shared
+TypeScript ownership under Feature 025. The new planner is still unimplemented.
 
 [Feature 023](../specs/023-procedural-content-review/tasks.md) completed the
 high-intent B03 source review for first licence, renewal, conversion, documents,
@@ -56,10 +73,12 @@ noindexed until that backend is deployed. The completed rebrand and office
 pages were integrated from
 `feat/016-unified-chrome` into local `main` on 2026-09-11.
 
-Current baseline runtime: static Next.js UI calling a Go API directly, with
-PostgreSQL persistence. Completed Feature 021 adds an explicitly authorized,
-read-only Cloudflare Worker/KV office snapshot for the free first release; D1,
-auth, booking, billing, queues and slot monitoring remain outside the MVP.
+Local source: Astro static export served by Workers Static Assets,
+with the explicitly authorized Worker/KV office snapshot. Go/PostgreSQL is the
+implemented full-BFF option for slots/history, not a required running service for
+that free surface. D1, auth, booking, billing, queues and slot monitoring remain
+outside the MVP. Feature 025 records the migration's local/deployed boundary;
+do not infer a live change from local source alone.
 
 ## Feature History
 
