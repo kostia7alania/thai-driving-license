@@ -44,8 +44,8 @@ surface with the capabilities actually deployed.
 - Keep moderated visit reports and read-only MCP conditional on real contributors
   or clients. No new framework, model service or deployment is approved here.
 - Feature [025](../specs/025-astro-static-migration/tasks.md) now records the
-  owner-approved Astro migration and shared public TypeScript ownership.
-  Preserve the existing URLs, SEO and Worker/KV contract. Source maintenance
+  owner-approved Astro migration, deployed and verified on 2026-10-03, and shared
+  public TypeScript ownership. Existing URLs, SEO and Worker/KV contract are preserved. Source maintenance
   is part of the product, not evidence that a new agent platform is needed.
 
 ## Maintain the Existing Release

@@ -138,9 +138,9 @@ The Go API and PostgreSQL remain the portable full-BFF path for work types,
 slots, comparison and history. They are not required for the static content or
 fresh office directory in the free release.
 
-Feature [025](specs/025-astro-static-migration/tasks.md) replaces the local Next
-export with Astro while preserving the same host/API contract. Its verification
-record distinguishes local source from a deployed revision. Public content is
+Feature [025](specs/025-astro-static-migration/tasks.md) replaced Next with Astro
+and was publicly verified on 2026-10-03, preserving the same host/API contract.
+Application `3b979e7` passed CI and is deployed on the existing Worker. Public content is
 build-time HTML; React is hydrated only for interactive tools and office refresh.
 New public deterministic plan rules may be shared by browser and Worker, but
 the personal planner is not implemented yet. No paid service was enabled.

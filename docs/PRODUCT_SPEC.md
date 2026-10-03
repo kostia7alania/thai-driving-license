@@ -105,14 +105,14 @@ before expanding scope; no payment flow or monitoring service is implemented.
 
 ## Architecture and Non-goals
 
-The local Feature 025 source uses Astro static output plus one Cloudflare Worker/KV
+The deployed Feature 025 source uses Astro static output plus one Cloudflare Worker/KV
 office snapshot behind same-origin `/v1` routes. The full stack remains Go with
 chi/Huma and PostgreSQL with pgx and plain SQL for work types, slots and history.
 There is no rendering server in the exported site. Targeted React islands keep
 interactive controls working without hydrating ordinary content. New public
 deterministic rules may share one TypeScript implementation across browser and
 Worker where both consume it; secrets, I/O, model calls and write validation
-remain server-side. See Feature 025 for the local-versus-deployed boundary.
+remain server-side. See Feature 025 for the deployed revision and validation limits.
 
 No auth, booking automation, billing, Redis, queues, D1 or slot monitoring. The
 only scheduled task is the bounded office-list refresh authorized in Feature

@@ -1,10 +1,9 @@
 # Project Status
 
-Local source and existing production checked: 2026-10-03. Astro release
-verification is in progress; the public site still serves the September 22 version. Older source
+Source, CI and public Astro deployment checked: 2026-10-03. Older source
 research and validation records retain their original dates.
 
-## October 3 Astro Migration: RELEASE_IN_PROGRESS
+## October 3 Astro Migration: DEPLOYED
 
 Feature [025](../specs/025-astro-static-migration/tasks.md) replaces Next with
 Astro static generation and targeted React islands. The free Worker/KV runtime,
@@ -26,12 +25,21 @@ and accessibility scored 100 on `/offices` and the first-licence guide; this doe
 not promise ranking or measure performance. Full-BFF build and query-boundary
 checks are not a Go/PostgreSQL end-to-end test. See the feature tasks for details.
 
-The owner authorized publication and deployment on October 3. Clean install,
-frontend checks, static parity and Worker dry-run pass again; read-only review
-found no confirmed blocker. The currently deployed version and 218-office
-upstream snapshot were verified. Publication, CI and the Astro deployment still
-need their own receipts. Two unpatched build/CLI dependency advisories are
-documented in the feature tasks; yesterday's zero-audit result is historical.
+Application commit `3b979e7` is published on `main` and passed
+[GitHub CI 37111532154](https://github.com/kostia7alania/thai-driving-license/actions/runs/37111532154),
+including Go/PostgreSQL tests, lint and the API image build. Cloudflare version
+`80f23deb-128a-4f25-bc82-4cada7d10707` is serving 100% at the
+[existing free origin](https://thai-driving-license.kostia7alania.workers.dev).
+All 248 public HTML responses, including 404, byte-match the configured artifact.
+The public home has zero script requests; mobile home, offices and map have no
+horizontal overflow or observed console errors. A real refresh captured 218
+offices at `2026-10-03T09:03:13.734Z`; its immediate repeat returned cooldown.
+Unsupported Calendar remains truthful and noindexed. KV, cron and billing
+settings were not changed; no full BFF was deployed.
+
+Two unpatched build/CLI dependency advisories are documented in the feature
+tasks; yesterday's zero-audit result is historical. The next product slice is
+Feature 024's sourced personal checklist, not another framework migration.
 
 ## September 22 Procedural Source Review
 
@@ -58,7 +66,7 @@ reproducibility and the configured 255-page static build passed.
 
 Application commit `8e755ac` passed GitHub CI run
 [35714408763](https://github.com/kostia7alania/thai-driving-license/actions/runs/35714408763)
-and is live as Cloudflare version `15fb0b66-9b31-4925-a1dd-3565eb89530c` at the
+and was released as Cloudflare version `15fb0b66-9b31-4925-a1dd-3565eb89530c` at the
 existing `workers.dev` origin. Post-deploy checks returned HTTP 200 for health,
 home, renewal, calendar and the office-snapshot API. The renewal page exposes
 the exact DLT and PRD sources with its 2026-09-22 access date, home remains

@@ -2,12 +2,12 @@
 
 Updated: 2026-10-03.
 
-## Active Feature
+## Latest Release and Next Product Slice
 
 [Feature 025](../specs/025-astro-static-migration/spec.md) implements the owner's
-approved Astro static migration. Local checks pass; publication, CI and deployment
-to the existing free Worker are now authorized. Follow its tasks for release verification and
-delivery status. Constitution 1.2.0 allows the bounded public TypeScript rules
+approved Astro static migration and is deployed on the existing free Worker.
+Application `3b979e7` passed CI and public read-back on 2026-10-03; follow its
+tasks for exact evidence and limitations. Constitution 1.2.0 allows bounded public TypeScript rules
 shared by browser and Worker; existing Go/PostgreSQL slot/history code stays.
 No new database, paid model or full-BFF deployment is part of this migration.
 
@@ -73,12 +73,12 @@ noindexed until that backend is deployed. The completed rebrand and office
 pages were integrated from
 `feat/016-unified-chrome` into local `main` on 2026-09-11.
 
-Local source: Astro static export served by Workers Static Assets,
+Deployed source: Astro static export served by Workers Static Assets,
 with the explicitly authorized Worker/KV office snapshot. Go/PostgreSQL is the
 implemented full-BFF option for slots/history, not a required running service for
 that free surface. D1, auth, booking, billing, queues and slot monitoring remain
-outside the MVP. Feature 025 records the migration's local/deployed boundary;
-do not infer a live change from local source alone.
+outside the MVP. Feature 025 records the exact deployed revision and public checks;
+new local changes still require their own release evidence.
 
 ## Feature History
 

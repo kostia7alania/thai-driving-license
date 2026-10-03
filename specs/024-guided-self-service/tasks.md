@@ -46,6 +46,11 @@ transitive build/CLI dependencies produce zero `npm audit` findings (including
 the dev tree). Lint, Astro/TypeScript checks, all 60 tests, data reproducibility
 and configured builds pass. Earlier audit results below remain historical.
 
+October 3 release follow-up: Feature 025 is deployed and publicly verified.
+Today's audit has two new root build/CLI advisories without patched versions;
+see Feature 025 for the scoped reachability assessment. The October 2 zero-audit
+result is historical. None of this implements the personal planner above.
+
 ## Validation: 2026-09-26
 
 - All 33 relative file links across the eight changed/new documents resolve.

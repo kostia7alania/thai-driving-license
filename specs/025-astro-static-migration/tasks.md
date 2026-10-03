@@ -7,15 +7,49 @@
 - [x] T2505 Verify route/SEO/content parity and executable-JS reduction.
 - [x] T2506 Run affected checks and local desktop/mobile browser journeys.
 - [x] T2507 Reconcile current docs and record delivery/remaining limitations.
-- [ ] T2508 Publish the reviewed source and verify CI on that exact commit.
-- [ ] T2509 Deploy the configured free export to the existing Cloudflare Worker.
-- [ ] T2510 Verify the public HTML, browser journeys and office refresh after deployment.
+- [x] T2508 Publish the reviewed source and verify CI on that exact commit.
+- [x] T2509 Deploy the configured free export to the existing Cloudflare Worker.
+- [x] T2510 Verify the public HTML, browser journeys and office refresh after deployment.
 
 Baseline: `main` = fetched `origin/main` = `647e428`. Existing uncommitted
 Feature 024 research and Next maintenance were preserved. Previous configured
 Next export retained at `/tmp/thai-license-astro.8RoVao/next-export` for local
 comparison only. The owner authorized commit, publication and the existing free
-Cloudflare deployment on 2026-10-03. Release gates below remain separate.
+Cloudflare deployment on 2026-10-03. Release gates below were verified separately.
+
+## Released: 2026-10-03
+
+- Application commit `3b979e74bbc7a87f0ebaf7b588fff19d3bd8f0f4` is published on
+  `main`. The authenticated GitHub integration published an exact staged-tree
+  match (`be62cefb92fee672334d2629f008c9656e7c2bc0`), then a fetch verified it
+  locally. The CLI credential is expired; no token or SSH trust settings changed.
+- [GitHub CI 37111532154](https://github.com/kostia7alania/thai-driving-license/actions/runs/37111532154)
+  succeeded on that SHA: frontend checks/build, Worker typecheck/dry-run,
+  Go tests with PostgreSQL 18 and lint, and the API container build.
+- The configured free export deployed to the existing
+  [public origin](https://thai-driving-license.kostia7alania.workers.dev).
+  Cloudflare version `80f23deb-128a-4f25-bc82-4cada7d10707`, tag `astro-3b979e7`,
+  deployment `d43f9c0d-d31f-4f9a-92c3-67faabf0aef0`, was read back at 100%.
+  The existing KV binding and `17 */6 * * *` cron remain unchanged; no paid
+  resources, new datastore or full BFF were deployed.
+- All 248 public HTML responses (247 routes plus a nonexistent-route 404)
+  byte-match the local artifact. Robots, the 243-URL sitemap, health and snapshot
+  return 200; legacy guide redirect is 301 and all three metadata PNG endpoints
+  return `image/png`. API responses retain `X-Robots-Tag: noindex`.
+- Public browser: home has its self-canonical, `index, follow`, zero executable
+  scripts and zero script requests. At 390px, home, offices and map have no
+  horizontal overflow. The map hydrates, loads tiles, resolves a Phuket deep
+  link and its text alternative; Reset filters restores 210 markers while
+  preserving unrelated query/hash. Only the office-list API is requested, not
+  unsupported slot endpoints. No console warnings/errors were observed.
+- Clicking Refresh on mobile makes one same-origin POST, captures 218 offices
+  (114 marked open) from DLT at `2026-10-03T09:03:13.734Z`, and displays the
+  successful unchanged result. The second click returns `cooldown` with the
+  same capture and next check at `2026-10-03T09:33:13.649Z`.
+- The old Calendar URL truthfully remains unavailable, `noindex, follow`, and
+  zero-JS. These synthetic checks do not establish real-applicant outcomes,
+  current procedural eligibility or a live Go/PostgreSQL service. Feature 024's
+  personal planner remains the next unimplemented product slice.
 
 ## Release preflight: 2026-10-03
 

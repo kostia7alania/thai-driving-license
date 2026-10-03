@@ -1,6 +1,6 @@
 # Feature 025: Astro static migration
 
-**Status:** Implemented; release verification in progress. **Authorized:** 2026-10-02, following the owner's
+**Status:** Deployed and publicly verified on 2026-10-03. **Authorized:** 2026-10-02, following the owner's
 approval of Astro, shared TypeScript logic and a strictly free Cloudflare runtime.
 Publication and deployment to the existing free Worker were authorized on 2026-10-03.
 

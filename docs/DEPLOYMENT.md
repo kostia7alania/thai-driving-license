@@ -1,6 +1,6 @@
 # Production deployment
 
-Reviewed against repository configuration on 2026-09-21. This is a deployment
+Reviewed against repository configuration and public release on 2026-10-03. This is a deployment
 runbook; the exact verified public state is recorded separately. See
 [PROJECT_STATUS.md](PROJECT_STATUS.md) for verification limits.
 
@@ -8,11 +8,12 @@ The implemented brand is Thai Driving License. The first canonical is the free
 Cloudflare `workers.dev` origin. `thai-driving-license.com` is an optional later
 purchase, not a launch dependency.
 
-Verified production state on 2026-09-21:
+Verified production state on 2026-10-03:
 
 - URL: `https://thai-driving-license.kostia7alania.workers.dev`
-- application commit: `e851e08`
-- Cloudflare version: `a412522d-14e3-4f0c-93ba-f0608c2e083b`
+- application commit: `3b979e74bbc7a87f0ebaf7b588fff19d3bd8f0f4`
+- Cloudflare version: `80f23deb-128a-4f25-bc82-4cada7d10707` (100%, tag `astro-3b979e7`)
+- previous rollback version: `15fb0b66-9b31-4925-a1dd-3565eb89530c`
 - KV namespace: `8d0e349135304e819bf5dd5da489c5f4`
 - cron: `17 */6 * * *` (UTC)
 
@@ -69,10 +70,11 @@ keep the prior offices and return a truthful `refresh_error`.
 
 ### Free-plan boundary
 
-The checked export contains 2,721 static asset files. Current Cloudflare Free
+The checked Astro export contains 282 static asset files. Cloudflare Free
 limits allow 20,000 static asset files per version, five Cron Triggers per
 account, 100,000 Worker requests per day, and KV allowances of 100,000 reads,
-1,000 writes and 1 GB storage as documented on 2026-09-21. Static asset requests
+1,000 writes and 1 GB storage as documented on 2026-09-21, not freshly audited
+by the October framework release. Static asset requests
 are free and unlimited under the current product terms. Four cron writes plus
 bounded manual refreshes are far below those quotas.
 
